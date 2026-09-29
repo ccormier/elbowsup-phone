@@ -2,6 +2,7 @@ package org.fossify.phone.services
 
 import android.telecom.Call
 import android.telecom.CallScreeningService
+import com.keejii.elbowsup.telecom.BlockerScreening // ELBOWSUP
 import org.fossify.commons.extensions.baseConfig
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.isNumberBlocked
@@ -11,6 +12,7 @@ import org.fossify.commons.helpers.SimpleContactsHelper
 class SimpleCallScreeningService : CallScreeningService() {
 
     override fun onScreenCall(callDetails: Call.Details) {
+        if (BlockerScreening.screen(this, callDetails) { respondToCall(callDetails, it) }) return // ELBOWSUP
         val number = callDetails.handle?.schemeSpecificPart
         when {
             number != null && isNumberBlocked(number) -> {
