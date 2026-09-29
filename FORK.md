@@ -15,7 +15,7 @@ Requires JDK 17+ (21 used here) and an Android SDK with platform 36.
 
    ```bash
    cd ../commons
-   ./gradlew :commons:publishToMavenLocal -PVERSION=6.1.6-elbowsup1
+   ./gradlew :commons:publishToMavenLocal -PVERSION=6.1.6-elbowsup2
    ```
 
 2. Build the app:
