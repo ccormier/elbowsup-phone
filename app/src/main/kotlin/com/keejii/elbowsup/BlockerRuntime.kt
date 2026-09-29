@@ -5,6 +5,7 @@ import com.keejii.elbowsup.core.BlockerSnapshot
 import com.keejii.elbowsup.storage.BlockerConfig
 import com.keejii.elbowsup.storage.EventLog
 import java.io.File
+import java.util.concurrent.CopyOnWriteArraySet
 
 private const val PREFS_NAME = "elbowsup_blocker"
 private const val EVENTS_FILE = "elbowsup/blocked_events.jsonl"
@@ -19,17 +20,33 @@ class BlockerRuntime private constructor(context: Context) {
 
     val events = EventLog(File(context.filesDir, EVENTS_FILE))
 
+    private val listeners = CopyOnWriteArraySet<() -> Unit>()
+
     @Volatile
     private var current: BlockerSnapshot = config.load()
 
     fun snapshot(): BlockerSnapshot = current
 
-    @Synchronized
+    /** Applies [change], saves it, and tells listeners if anything actually changed. */
     fun update(change: (BlockerSnapshot) -> BlockerSnapshot) {
-        val old = current
-        val new = change(old)
-        config.save(old, new)
-        current = new
+        val changed = synchronized(this) {
+            val old = current
+            val new = change(old)
+            if (new != old) {
+                config.save(old, new)
+                current = new
+            }
+            new != old
+        }
+        if (changed) listeners.forEach { it() }
+    }
+
+    fun addListener(listener: () -> Unit) {
+        listeners += listener
+    }
+
+    fun removeListener(listener: () -> Unit) {
+        listeners -= listener
     }
 
     fun nextId(): Long = config.nextId()

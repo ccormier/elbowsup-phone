@@ -11,7 +11,13 @@ data class PauseSchedule(
 
 data class TimedPause(val untilEpochMillis: Long?, val untilResume: Boolean) {
     companion object {
+        private const val MILLIS_PER_MINUTE = 60_000L
+
         val NONE = TimedPause(null, false)
+        val UNTIL_RESUME = TimedPause(null, true)
+
+        fun forMinutes(minutes: Int, nowEpochMillis: Long) =
+            TimedPause(nowEpochMillis + minutes * MILLIS_PER_MINUTE, false)
     }
 }
 

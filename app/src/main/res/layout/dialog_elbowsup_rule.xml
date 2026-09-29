@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/elbowsup_rule_dialog_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/medium_margin">
+
+        <RadioGroup
+            android:id="@+id/elbowsup_rule_kind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin">
+
+            <org.fossify.commons.views.MyCompatRadioButton
+                android:id="@+id/elbowsup_kind_block"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/elbowsup_kind_block" />
+
+            <org.fossify.commons.views.MyCompatRadioButton
+                android:id="@+id/elbowsup_kind_allow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/elbowsup_kind_allow" />
+        </RadioGroup>
+
+        <org.fossify.commons.views.MyTextView
+            android:id="@+id/elbowsup_rule_matcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_background"
+            android:drawableEnd="@drawable/ic_chevron_down_vector"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/bigger_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/bigger_margin"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <org.fossify.commons.views.MyTextInputLayout
+            android:id="@+id/elbowsup_rule_pattern_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/elbowsup_rule_pattern"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+        </org.fossify.commons.views.MyTextInputLayout>
+
+        <org.fossify.commons.views.MyTextView
+            android:id="@+id/elbowsup_rule_name_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:text="@string/elbowsup_note_name_rules"
+            android:textSize="@dimen/normal_text_size" />
+
+        <org.fossify.commons.views.MyAppCompatCheckbox
+            android:id="@+id/elbowsup_rule_empty_name_only"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:text="@string/elbowsup_only_when_no_name" />
+
+        <org.fossify.commons.views.MyTextView
+            android:id="@+id/elbowsup_when_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:text="@string/elbowsup_when_label"
+            android:textSize="@dimen/normal_text_size"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/elbowsup_rule_when"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin">
+
+            <org.fossify.commons.views.MyCompatRadioButton
+                android:id="@+id/elbowsup_when_always"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/elbowsup_when_always" />
+
+            <org.fossify.commons.views.MyCompatRadioButton
+                android:id="@+id/elbowsup_when_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/elbowsup_when_window" />
+        </RadioGroup>
+
+        <include
+            android:id="@+id/elbowsup_rule_window"
+            layout="@layout/view_elbowsup_window" />
+
+        <LinearLayout
+            android:id="@+id/elbowsup_rule_action_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <org.fossify.commons.views.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/medium_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:text="@string/elbowsup_action_label"
+                android:textSize="@dimen/normal_text_size"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/elbowsup_rule_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin">
+
+                <org.fossify.commons.views.MyCompatRadioButton
+                    android:id="@+id/elbowsup_action_reject_quiet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elbowsup_action_reject_quiet" />
+
+                <org.fossify.commons.views.MyCompatRadioButton
+                    android:id="@+id/elbowsup_action_reject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elbowsup_action_reject" />
+
+                <org.fossify.commons.views.MyCompatRadioButton
+                    android:id="@+id/elbowsup_action_silence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elbowsup_action_silence" />
+
+                <org.fossify.commons.views.MyCompatRadioButton
+                    android:id="@+id/elbowsup_action_answer_hangup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/elbowsup_action_answer_hangup" />
+            </RadioGroup>
+
+            <org.fossify.commons.views.MyTextView
+                android:id="@+id/elbowsup_action_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:text="@string/elbowsup_action_answer_hangup_unavailable"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+        <org.fossify.commons.views.MyMaterialSwitch
+            android:id="@+id/elbowsup_rule_dialog_enabled"
+            style="@style/SettingsSwitchStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/elbowsup_enabled" />
+    </LinearLayout>
+</ScrollView>

@@ -52,6 +52,9 @@ current; it is what to check first when a merge conflicts.
 | File | Change |
 |---|---|
 | `app/build.gradle.kts` | `testImplementation` JUnit |
+| `app/src/main/AndroidManifest.xml` | one block between `<!-- ELBOWSUP begin -->` and `<!-- ELBOWSUP end -->`: the call blocker screen and the pause notification's Resume receiver |
+| `app/src/main/res/menu/menu.xml` | a "Call blocker" overflow item |
+| `app/src/main/kotlin/org/fossify/phone/activities/MainActivity.kt` | opens the call blocker screen from that menu item (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/services/SimpleCallScreeningService.kt` | first statement of `onScreenCall` asks the blocker for a verdict and returns if it answered; otherwise Fossify's screening runs unchanged (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/helpers/CallContactHelper.kt` | with no contact match, show the carrier caller name instead of the number (1 line and an import) |
 

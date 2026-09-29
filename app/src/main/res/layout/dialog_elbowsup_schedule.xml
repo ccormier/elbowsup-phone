@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/elbowsup_schedule_dialog_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_margin">
+
+        <org.fossify.commons.views.MyTextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/elbowsup_schedule_name"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/elbowsup_schedule_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/bigger_text_size" />
+        </org.fossify.commons.views.MyTextInputLayout>
+
+        <include
+            android:id="@+id/elbowsup_schedule_window"
+            layout="@layout/view_elbowsup_window" />
+
+        <org.fossify.commons.views.MyMaterialSwitch
+            android:id="@+id/elbowsup_schedule_dialog_enabled"
+            style="@style/SettingsSwitchStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/elbowsup_enabled" />
+    </LinearLayout>
+</ScrollView>

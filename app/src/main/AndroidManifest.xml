@@ -196,6 +196,19 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- ELBOWSUP begin: call blocker -->
+        <activity
+            android:name="com.keejii.elbowsup.ui.BlockerActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/elbowsup_title"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <receiver
+            android:name="com.keejii.elbowsup.ui.PauseActionReceiver"
+            android:exported="false" />
+        <!-- ELBOWSUP end -->
+
         <activity-alias
             android:name=".activities.SplashActivity.Red"
             android:enabled="false"

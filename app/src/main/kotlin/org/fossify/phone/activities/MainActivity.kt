@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
+import com.keejii.elbowsup.ui.BlockerActivity // ELBOWSUP
 import me.grantland.widget.AutofitHelper
 import org.fossify.commons.dialogs.ChangeViewTypeDialog
 import org.fossify.commons.dialogs.ConfirmationDialog
@@ -230,6 +231,7 @@ class MainActivity : SimpleActivity() {
                     R.id.filter -> showFilterDialog()
                     R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                     R.id.settings -> launchSettings()
+                    R.id.elbowsup_blocker -> BlockerActivity.open(this@MainActivity) // ELBOWSUP
                     R.id.change_view_type -> changeViewType()
                     R.id.column_count -> changeColumnCount()
                     R.id.about -> launchAbout()

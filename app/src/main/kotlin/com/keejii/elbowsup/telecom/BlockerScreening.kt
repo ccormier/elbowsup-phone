@@ -5,6 +5,7 @@ import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService.CallResponse
 import android.telephony.TelephonyManager
+import androidx.annotation.RequiresApi
 import com.keejii.elbowsup.BlockerRuntime
 import com.keejii.elbowsup.core.ScreeningFlags
 import com.keejii.elbowsup.core.planScreening
@@ -19,6 +20,7 @@ object BlockerScreening {
      * before a failed response is taken back.
      */
     fun screen(context: Context, details: Call.Details, respond: (CallResponse) -> Unit): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return false
         var runtime: BlockerRuntime? = null
         var pendingEventId: Long? = null
         return try {
@@ -58,6 +60,7 @@ object BlockerScreening {
     }
 
     /** When it cannot be checked the number counts as an emergency, so nothing is blocked. */
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun isEmergencyNumber(context: Context, rawNumber: String?): Boolean = try {
         context.getSystemService(TelephonyManager::class.java)?.isEmergencyNumber(rawNumber.orEmpty()) ?: true
     } catch (_: Exception) {
@@ -65,6 +68,7 @@ object BlockerScreening {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 fun ScreeningFlags.toCallResponse(): CallResponse = CallResponse.Builder()
     .setDisallowCall(disallow)
     .setRejectCall(reject)

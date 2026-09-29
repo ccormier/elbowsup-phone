@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="elbowsup_title">Call blocker</string>
+
+    <!-- Status -->
+    <string name="elbowsup_status_active">Active</string>
+    <string name="elbowsup_status_needs_setup">Needs setup</string>
+    <string name="elbowsup_status_paused">Paused</string>
+    <string name="elbowsup_status_unavailable">Not available</string>
+    <string name="elbowsup_detail_active">Calls that match your rules are blocked.</string>
+    <string name="elbowsup_detail_unsupported">Call blocking needs Android 10 or newer.</string>
+    <string name="elbowsup_detail_needs_setup">Blocking is off until setup is finished.</string>
+    <string name="elbowsup_detail_screening_missing">Blocking is off because Elbows Up is not the call screening app.</string>
+    <string name="elbowsup_detail_contacts_missing">Blocking is off because Elbows Up cannot read your contacts.</string>
+    <string name="elbowsup_detail_paused_until">Paused until %1$s.</string>
+    <string name="elbowsup_detail_paused_until_resume">Paused until you resume.</string>
+    <string name="elbowsup_detail_paused_schedule">Paused by a schedule.</string>
+
+    <!-- Pause -->
+    <string name="elbowsup_pause">Pause</string>
+    <string name="elbowsup_resume">Resume</string>
+    <string name="elbowsup_pause_title">Pause blocking</string>
+    <string name="elbowsup_pause_15_minutes">15 minutes</string>
+    <string name="elbowsup_pause_1_hour">1 hour</string>
+    <string name="elbowsup_pause_until_resume">Until I resume</string>
+    <string name="elbowsup_pause_channel">Blocking paused</string>
+    <string name="elbowsup_pause_notification_title">Call blocking is paused</string>
+    <string name="elbowsup_pause_notification_until">Until %1$s</string>
+    <string name="elbowsup_pause_notification_until_resume">Until you resume</string>
+
+    <!-- Setup -->
+    <string name="elbowsup_setup_label">Set up</string>
+    <string name="elbowsup_setup_screening">Elbows Up needs to be your call screening app to block calls before they ring.</string>
+    <string name="elbowsup_setup_screening_button">Set as call screening app</string>
+    <string name="elbowsup_setup_contacts">Elbows Up needs to read your contacts so the people you know always ring through.</string>
+    <string name="elbowsup_setup_contacts_button">Allow contacts</string>
+    <string name="elbowsup_setup_dialer">Elbows Up is not your phone app. Rules that use the caller name, and answer and hang up, need it.</string>
+    <string name="elbowsup_setup_dialer_button">Make default phone app</string>
+
+    <!-- Rules list -->
+    <string name="elbowsup_rules_label">Rules</string>
+    <string name="elbowsup_rules_empty">No rules yet. Contacts and emergency numbers are never blocked, and the first matching rule from the top wins.</string>
+    <string name="elbowsup_add_rule">Add rule</string>
+    <string name="elbowsup_rule_always">Always</string>
+    <string name="elbowsup_rule_move_up">Move up</string>
+    <string name="elbowsup_rule_move_down">Move down</string>
+    <string name="elbowsup_rule_enabled">Enabled</string>
+
+    <!-- Rule editor -->
+    <string name="elbowsup_rule_new">New rule</string>
+    <string name="elbowsup_rule_edit">Edit rule</string>
+    <string name="elbowsup_kind_block">Block</string>
+    <string name="elbowsup_kind_allow">Allow</string>
+    <string name="elbowsup_matcher_prefix">Number starts with</string>
+    <string name="elbowsup_matcher_exact">Exact number</string>
+    <string name="elbowsup_matcher_name">Caller name</string>
+    <string name="elbowsup_matcher_empty_name">No caller name</string>
+    <string name="elbowsup_matcher_no_number">Hidden number</string>
+    <string name="elbowsup_hint_prefix">Start of number, e.g. +1415</string>
+    <string name="elbowsup_hint_exact">Number, e.g. +14155551234</string>
+    <string name="elbowsup_hint_name">Name, e.g. Likely*</string>
+    <string name="elbowsup_note_name_rules">* matches any text and ? matches one character. Name rules are decided as the call reaches this phone, just before it would ring.</string>
+    <string name="elbowsup_only_when_no_name">Only when the caller has no name</string>
+    <string name="elbowsup_when_label">When</string>
+    <string name="elbowsup_when_always">Always</string>
+    <string name="elbowsup_when_window">Only during a time window</string>
+    <string name="elbowsup_window_starts">Starts %1$s</string>
+    <string name="elbowsup_window_ends">Ends %1$s</string>
+    <string name="elbowsup_action_label">What to do</string>
+    <string name="elbowsup_action_reject_quiet">Reject quietly</string>
+    <string name="elbowsup_action_reject">Reject</string>
+    <string name="elbowsup_action_silence">Silence</string>
+    <string name="elbowsup_action_answer_hangup">Answer and hang up</string>
+    <string name="elbowsup_action_answer_hangup_unavailable">Answer and hang up needs Android 15 and Elbows Up as your phone app. Until then it rejects quietly.</string>
+    <string name="elbowsup_enabled">Enabled</string>
+    <string name="elbowsup_error_pattern_required">Enter a value to match.</string>
+    <string name="elbowsup_error_not_a_number">Use digits, with an optional + at the start.</string>
+    <string name="elbowsup_error_no_days">Pick at least one day.</string>
+    <string name="elbowsup_error_duplicate">Another rule already matches the same calls.</string>
+
+    <!-- Schedules -->
+    <string name="elbowsup_schedules_label">Pause schedules</string>
+    <string name="elbowsup_schedules_explainer">Blocking is paused during a schedule, for example while you work.</string>
+    <string name="elbowsup_add_schedule">Add schedule</string>
+    <string name="elbowsup_schedule_new">New schedule</string>
+    <string name="elbowsup_schedule_edit">Edit schedule</string>
+    <string name="elbowsup_schedule_name">Name</string>
+    <string name="elbowsup_error_name_required">Give the schedule a name.</string>
+</resources>

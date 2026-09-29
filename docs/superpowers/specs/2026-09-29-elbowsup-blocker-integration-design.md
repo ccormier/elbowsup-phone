@@ -154,6 +154,9 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 - Exit (device): a prefix rule rejects, silences, rejects quietly; a contact rings; emergency places; first call after process kill is screened.
 
 **Phase 4 — Minimal UI:** menu entry, `BlockerActivity` with rules list, rule editor (including per-rule schedule), named schedules, role setup, pause and status.
+- Status 2026-09-29: implemented as one scrolling `BlockerActivity` (status headline, pause/resume, setup rows, ordered rules with up/down reordering and an enabled switch, named pause schedules), a rule editor and a schedule editor, and an ongoing pause notification with a Resume action. Drafts, list editing and status are pure and unit-tested (123 tests total); detekt and lint are clean. Setup completes on its own the first time the screening role and contacts permission are both held.
+- Design notes: up/down arrows replace drag-to-reorder; a prefix typed without a plus is read in the phone's own country; a screen-wide change listener on `BlockerRuntime` keeps the screen in step when the notification's Resume changes the state.
+- Verified on the QA phone by driving the real screens: opening from the menu, add/edit/delete a rule, reordering, validation of bad input, the country-code prefix, the name-rule note, adding a schedule, pausing until resume, and Resume from the notification (which caught and fixed a stale screen). Not yet run end to end on a real call: the role request and setup completing, then a rule made in the UI blocking a call.
 - Exit: rules created from the UI drive Phase 3 behavior.
 
 **Phase 5 — Dialer stage:** `Ringer`, late evaluation, name rules, answer-and-hangup handoff, `CallService` hook, manifest flag.
