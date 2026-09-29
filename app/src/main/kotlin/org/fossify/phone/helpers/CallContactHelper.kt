@@ -3,6 +3,7 @@ package org.fossify.phone.helpers
 import android.content.Context
 import android.net.Uri
 import android.telecom.Call
+import com.keejii.elbowsup.telecom.carrierName // ELBOWSUP
 import org.fossify.commons.extensions.formatPhoneNumber
 import org.fossify.commons.extensions.getMyContactsCursor
 import org.fossify.commons.extensions.getPhoneNumberTypeText
@@ -70,7 +71,7 @@ fun getCallContact(context: Context, call: Call?, callback: (CallContact) -> Uni
                         }
                     }
                 } else {
-                    callContact.name = callContact.number
+                    callContact.name = call?.carrierName() ?: callContact.number // ELBOWSUP
                 }
 
                 callback(callContact)

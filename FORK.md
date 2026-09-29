@@ -29,7 +29,8 @@ Requires JDK 17+ (21 used here) and an Android SDK with platform 36.
 - `APP_ID` / `APP_NAMESPACE` split in `gradle.properties` + `app/build.gradle.kts`
 - Launcher name "Elbows Up" in all locales (debug: "Elbows Up_debug")
 - `commons = "6.1.6-elbowsup1"` in `gradle/libs.versions.toml` (patched Commons — see `../commons/FORK.md`)
-- No Kotlin changes.
+- Call blocker and caller-name work: new code lives under `app/src/main/kotlin/com/keejii/elbowsup/`;
+  the only edits to upstream files are listed in **Upstream touch points** below.
 
 ## Keeping up with upstream
 
@@ -42,3 +43,15 @@ Resolve conflicts (expected: rare and small), rebuild, and push to `origin`.
 If upstream bumps the Commons version, re-apply the Commons patch onto the new
 tag, republish as `<newversion>-elbowsup1`, and bump the pin in
 `gradle/libs.versions.toml`.
+
+## Upstream touch points
+
+Every edit to a file that exists upstream, marked `// ELBOWSUP` in the source. Keep this list
+current; it is what to check first when a merge conflicts.
+
+| File | Change |
+|---|---|
+| `app/build.gradle.kts` | `testImplementation` JUnit |
+| `app/src/main/kotlin/org/fossify/phone/helpers/CallContactHelper.kt` | with no contact match, show the carrier caller name instead of the number (1 line and an import) |
+
+Design and plan: `docs/superpowers/specs/2026-09-29-elbowsup-blocker-integration-design.md`.
