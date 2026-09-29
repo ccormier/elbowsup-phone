@@ -142,7 +142,7 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 **Phase 1 — Core and caller name on the call screen:**
 - *Core:* rule model, matching, two-stage ordered evaluation with `DEFER`, time windows (midnight-crossing, start inclusive/end exclusive), rule schedules, named pause schedules, timed pause check, decision → flags mapping, and `realCallerName`, with tests (add `src/test`). No Android.
 - *CNAM slice (§4.G):* `CarrierName` adapter from `Call.Details` to `realCallerName`, the one-line `getCallContact()` edit, and the ledger entry. Needs no roles beyond the dialer, so it is the first thing to reach a device.
-- Status 2026-09-29: core, normalization and the CNAM edit are implemented on branch `phase1-core-cnam` (55 unit tests, detekt clean); the on-device check below is pending.
+- Status 2026-09-29: core, normalization and the CNAM edit are implemented on branch `phase1-core-cnam` (55 unit tests, detekt clean). Device-verified on caiman: "Likely Spam" shows with the number below it on the notification and, with the phone locked, on the full call screen; an unlabeled caller shows just the number; a saved contact shows its contact name. Fossify's default of a heads-up notification (not full screen) on an unlocked phone is kept unchanged.
 - Exit: unit tests pass; on device a call from 226-220-1235 shows "Likely Spam" with the number below, a call from 226-220-1234 still shows just the number, and a saved contact still shows its contact name.
 
 **Phase 2 — Storage and runtime:** `BlockerConfig`, `EventLog`, `BlockerRuntime`, contact check, SDK gating.
