@@ -2,6 +2,8 @@ package com.keejii.elbowsup.core
 
 import java.time.DayOfWeek
 
+internal const val MINUTES_PER_HOUR = 60
+
 /**
  * Days plus a start and end minute of the day. Start is inclusive, end is exclusive. When the end
  * is not after the start the window crosses midnight, and the start day owns the spill into the

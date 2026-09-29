@@ -43,7 +43,7 @@ Everything new is in `:app`, package `com.keejii.elbowsup` (upstream stays `org.
 |---|---|
 | `core` (pure Kotlin, no Android imports) | Rule model, matching, ordered evaluation with a stage, pause/schedule check, decision → `CallResponse` flags. Unit-tested on the JVM (`testFossDebugUnitTest`; `src/test` and JUnit are added in Phase 1). |
 | `BlockerConfig` | Own `SharedPreferences` file with Gson JSON, following Fossify's speed-dial precedent. **Not** an edit to upstream `Config.kt`. Holds rules, schedules, pause, setup flag. |
-| `EventLog` | Small capped store of blocked events (time, number, name, action, rule summary). Backing (JSON lines vs SQLite) chosen in Phase 2. |
+| `EventLog` | Small capped store of blocked events (time, number, name, action, rule summary). Backing is a JSON-lines file (`filesDir/elbowsup/blocked_events.jsonl`, cap 500): one cheap append on the call path, no schema; appending never throws, so a full disk cannot change what happens to a call. |
 | `BlockerRuntime` | Lazy singleton created by the hooks: loads config, evaluates, records events. No `Application` subclass, no manifest change for init. |
 | `BlockerScreening` | Early stage, called from the screening hook. |
 | `BlockerCalls` + `Ringer` | Dialer stage: late evaluation, handoff, and ringing, called from the `CallService` hook. |
@@ -86,7 +86,7 @@ Facts from the SDK's API data: `Call.Details.getId()` is 35; `isEmergencyNumber`
 
 ### E. Contacts
 
-"Contact" means what Fossify treats as one: reuse `SimpleContactsHelper.existsSync(number, privateCursor)`, which upstream screening already calls and which covers private contacts and Android's number comparison. Bounded by a timeout; on timeout or error, allow. Whether to add a "contacts unreadable/empty → pause blocking" safeguard (relevant on GrapheneOS contact scopes) is a v1 scope question (§7).
+"Contact" means what Fossify treats as one: reuse `SimpleContactsHelper.existsSync(number, privateCursor)`, which upstream screening already calls and which covers private contacts and Android's number comparison. `existsSync` is a single indexed `PhoneLookup` query, so no timeout thread is used; it reports Found, NotFound or Undetermined, and Undetermined or any exception counts as a contact, so an unreadable book never blocks anything. Whether to add a "contacts unreadable/empty → pause blocking" safeguard (relevant on GrapheneOS contact scopes) is a v1 scope question (§7).
 
 ### F. Setup and roles
 
@@ -146,6 +146,7 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 - Exit: unit tests pass; on device a call from 226-220-1235 shows "Likely Spam" with the number below, a call from 226-220-1234 still shows just the number, and a saved contact still shows its contact name.
 
 **Phase 2 — Storage and runtime:** `BlockerConfig`, `EventLog`, `BlockerRuntime`, contact check, SDK gating.
+- Status 2026-09-29: implemented on the same branch (80 unit tests total, detekt and lint clean). Rules and schedules are stored as JSON with explicit DTO mapping, and an unreadable or newer-version entry is dropped instead of guessed at. The phone-facing pieces (`BlockerConfig`, `BlockerRuntime`, contact and region lookups in `telecom/DeviceState.kt`) are thin wrappers over tested pure code and get their first device run in Phase 3. Cold-start behaviour is settled by design: `BlockerRuntime.get()` loads synchronously on first use.
 
 **Phase 3 — Early stage:** `BlockerScreening` and the screening hook; number rules, contacts, emergency, pause, screening-time actions, fallthrough to upstream.
 - Exit (device): a prefix rule rejects, silences, rejects quietly; a contact rings; emergency places; first call after process kill is screened.
@@ -173,7 +174,6 @@ Settled:
 
 Open:
 
-- **Blocked-event backing store:** decided in Phase 2.
 
 ## 10. Risks
 
