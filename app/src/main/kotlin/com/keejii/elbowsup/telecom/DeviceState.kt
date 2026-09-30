@@ -1,7 +1,9 @@
 package com.keejii.elbowsup.telecom
 
 import android.content.Context
+import android.os.Build
 import android.telephony.TelephonyManager
+import androidx.annotation.RequiresApi
 import com.keejii.elbowsup.core.ContactStatus
 import com.keejii.elbowsup.core.resolveRegion
 import org.fossify.commons.extensions.getMyContactsCursor
@@ -32,3 +34,11 @@ fun Context.currentRegion(): String? {
 }
 
 fun Context.dialerRoleHeld(): Boolean = isDefaultDialer()
+
+/** When it cannot be checked the number counts as an emergency, so nothing is blocked. */
+@RequiresApi(Build.VERSION_CODES.Q)
+fun Context.isEmergencyNumberOrUnknown(rawNumber: String?): Boolean = try {
+    getSystemService(TelephonyManager::class.java)?.isEmergencyNumber(rawNumber.orEmpty()) ?: true
+} catch (_: Exception) {
+    true
+}

@@ -35,10 +35,11 @@ class EnvironmentTest {
     }
 
     @Test
-    fun answerAndHangUpNeedsAndroid15AndTheDialerRole() {
-        assertFalse(canAnswerHangup(sdkInt = 34, dialerHeld = true))
-        assertFalse(canAnswerHangup(sdkInt = 35, dialerHeld = false))
-        assertTrue(canAnswerHangup(sdkInt = 35, dialerHeld = true))
+    fun answerAndHangUpNeedsBlockingSupportAndTheDialerRole() {
+        assertFalse(canAnswerHangup(sdkInt = 28, dialerHeld = true))
+        assertFalse(canAnswerHangup(sdkInt = 36, dialerHeld = false))
+        assertTrue(canAnswerHangup(sdkInt = 29, dialerHeld = true))
+        assertTrue(canAnswerHangup(sdkInt = 36, dialerHeld = true))
     }
 
     @Test

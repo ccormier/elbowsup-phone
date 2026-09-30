@@ -29,7 +29,7 @@ Pitfalls the POC hit or hid, which shape this design:
 | On Rogers an unlabeled caller's name is **the number itself**, not blank. | "Empty name" means no real name: blank, or digits equal to the call's number (§4.A). |
 | Telecom's ring is already going when the in-call service sees the name. | We own ringing, so nothing rings until the late decision (§4.B, D3). Verified: a late reject makes no sound. |
 | Rules/contacts were cached asynchronously after process start, so the **first call to a cold process failed open** and was never blocked. | Storage chosen so a cold start reads rules synchronously in milliseconds (§5). |
-| Answer-and-hangup was keyed on `Call.Details.getId()`, which is **API 35**, with minSdk 29. Below 35 it throws `NoSuchMethodError` (an `Error`, not caught by `catch (Exception)`). | Explicit SDK gating (§4.D). |
+| Answer-and-hangup was keyed on `Call.Details.getId()`, which is **API 35**, with minSdk 29. Below 35 it throws `NoSuchMethodError` (an `Error`, not caught by `catch (Exception)`). Here the dialer decides the call itself, so no id is needed at all. | Explicit SDK gating (§4.D). |
 | Silence combined with disallow is illegal; a disallowed call never reaches the dialer. | Action → `CallResponse` mapping is a tested pure function. |
 | Contact numbers normalized under a different region silently stop matching. | Reuse Fossify's phone-number comparison for contacts instead of a home-grown set (§4.E). |
 
@@ -82,7 +82,7 @@ Upstream `SimpleCallScreeningService` already blocks from the system blocked-num
 
 ### D. Android version gating
 
-Facts from the SDK's API data: `Call.Details.getId()` is 35; `isEmergencyNumber`, `setSilenceCall`, `RoleManager`, `getCallDirection` are 29; Fossify's minSdk is 26. We do not raise minSdk (that edits a dependabot-churned line). The blocker is off below 29; answer and hang up needs 35 and otherwise behaves as reject quietly. Gate with explicit `SDK_INT` checks, never try/catch.
+Facts from the SDK's API data: `isEmergencyNumber`, `setSilenceCall`, `RoleManager`, `getCallDirection` are 29; Fossify's minSdk is 26. We do not raise minSdk (that edits a dependabot-churned line). The blocker is off below 29. Answer and hang up needs only the dialer role, because the dialer re-evaluates the same rules itself and needs no `Call.Details.getId()` handoff (API 35) between screening and the in-call service; without the dialer role it behaves as reject quietly. Gate with explicit `SDK_INT` checks, never try/catch.
 
 ### E. Contacts
 
@@ -117,8 +117,9 @@ Every upstream file we edit, marked `// ELBOWSUP` in the source and listed in `F
 | `helpers/CallContactHelper.kt` | in the no-contact-match branch, prefer the real carrier name over the number (1 line and an import, plus a new `CarrierName.kt`; no string) | 1 |
 | `activities/CallActivity.kt` (optional) | refresh caller info when the name changes while ringing (~4 lines); only if a late name is observed | 1 |
 | `services/SimpleCallScreeningService.kt` | first statement of `onScreenCall`: delegate, return if handled (~3 lines) | 3 |
-| `services/CallService.kt` | `onCallAdded` after `super`: blocker/ringer hook that may claim the call and skip UI; `onSilenceRinger` override (~8 lines) | 5 |
-| `AndroidManifest.xml` | one contiguous block: `BlockerActivity`; `IN_CALL_SERVICE_RINGING` meta-data on `CallService` | 4–5 |
+| `services/CallService.kt` | `onCallAdded` after `super`: blocker/ringer hook that may claim the call and skip UI; `onSilenceRinger` override (import plus 6 lines) | 5 |
+| `AndroidManifest.xml` | one contiguous block: `BlockerActivity` | 4 |
+| `src/debug/AndroidManifest.xml` (ours, not upstream) | `IN_CALL_SERVICE_RINGING` meta-data on `CallService`, merged into debug builds only until the Phase 6 matrix passes; `Ringer` reads the merged manifest, so release builds leave ringing to Telecom | 5 |
 | `res/menu/menu.xml`, `MainActivity.kt` | one "Call blocker" item and its handler (~4 lines) | 4 |
 | `RecentCallsAdapter.kt` / recents fragment | blocked-row annotation and detail; seam chosen in its phase | 7 |
 
@@ -160,6 +161,10 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 - Exit: rules created from the UI drive Phase 3 behavior.
 
 **Phase 5 — Dialer stage:** `Ringer`, late evaluation, name rules, answer-and-hangup handoff, `CallService` hook, manifest flag.
+- Status 2026-09-29: implemented (140 unit tests; detekt and lint clean, no lint findings in new code). Pure `planDialer` and `ringPolicy` are tested; `telecom/BlockerCalls.kt` and `telecom/Ringer.kt` are the Android layer. `CallService` gained the hook and an `onSilenceRinger` override. The ringing flag is in the debug manifest only (verified absent from the merged release manifest).
+- Design notes: no answer-and-hang-up handoff is needed (see §4.D); the dialer re-runs the whole list, so a call silenced at screening is recognised by `EXTRA_SILENT_RINGING_REQUESTED` and not recorded twice. A reject or answer-and-hang-up on the first look claims the call so Fossify never shows it; a later name change re-evaluates while ringing. Any failure rings the call and takes back the event. A 2-minute watchdog stops a ring that never got a stop callback.
+- Device-verified on caiman (Android 17, debug build owning ringing): no rules rang and vibrated with the volume key silencing it; a `Likely*` quiet reject gave no ring, no screen and a logged event with the name; answer-and-hang-up answered (3 s call in the log) with nothing shown on the phone; a name silence rang nothing and stayed answerable; a screening-time number silence stayed quiet and was recorded once, not twice.
+- Not yet tested: the full ringing matrix (Phase 6). A late reject is logged by the platform as rejected, not blocked, so it appears in Recents as an ordinary rejected call.
 - Exit: a labeled call is blocked and logged; an unlabeled call rings; ringing works with the blocker off; a claimed handoff never shows the incoming screen.
 
 **Phase 6 — Ringer parity hardening:** the full ringing matrix (ringer modes, DND modes, Bluetooth/headset, second call, lock screen, per-contact ringtones) before any release build carries the flag. Phase 0 covered only normal ringer mode with DND off.

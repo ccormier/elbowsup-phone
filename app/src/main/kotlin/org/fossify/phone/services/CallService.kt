@@ -3,6 +3,7 @@ package org.fossify.phone.services
 import android.telecom.Call
 import android.telecom.CallAudioState
 import android.telecom.InCallService
+import com.keejii.elbowsup.telecom.BlockerCalls
 import org.fossify.commons.extensions.canUseFullScreenIntent
 import org.fossify.commons.extensions.hasPermission
 import org.fossify.commons.helpers.PERMISSION_POST_NOTIFICATIONS
@@ -33,6 +34,7 @@ class CallService : InCallService() {
 
     override fun onCallAdded(call: Call) {
         super.onCallAdded(call)
+        if (BlockerCalls.onCallAdded(this, call)) return // ELBOWSUP
         CallManager.onCallAdded(call)
         CallManager.inCallService = this
         call.registerCallback(callListener)
@@ -63,6 +65,11 @@ class CallService : InCallService() {
                 callNotificationManager.setupNotification()
             }
         }
+    }
+
+    override fun onSilenceRinger() { // ELBOWSUP
+        super.onSilenceRinger()
+        BlockerCalls.onSilenceRinger()
     }
 
     override fun onCallRemoved(call: Call) {

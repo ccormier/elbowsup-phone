@@ -3,7 +3,6 @@ package com.keejii.elbowsup.core
 import java.time.ZonedDateTime
 
 private const val MIN_SDK_BLOCKING = 29
-private const val MIN_SDK_ANSWER_HANGUP = 35
 
 /** Everything the call path reads, held in memory. */
 data class BlockerSnapshot(
@@ -32,8 +31,8 @@ fun blockingSupported(sdkInt: Int): Boolean = sdkInt >= MIN_SDK_BLOCKING
 /** Blocking stays off until setup has completed once, and below Android 10. */
 fun blockingActive(setupComplete: Boolean, sdkInt: Int): Boolean = setupComplete && blockingSupported(sdkInt)
 
-/** `Call.Details.getId()`, which the handoff is keyed on, needs Android 15. */
-fun canAnswerHangup(sdkInt: Int, dialerHeld: Boolean): Boolean = sdkInt >= MIN_SDK_ANSWER_HANGUP && dialerHeld
+/** The dialer answers and hangs up the call itself, so it only needs the dialer role and blocking support. */
+fun canAnswerHangup(sdkInt: Int, dialerHeld: Boolean): Boolean = blockingSupported(sdkInt) && dialerHeld
 
 fun buildEnv(
     stage: Stage,
