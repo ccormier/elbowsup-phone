@@ -5,19 +5,16 @@ fun ruleSummary(rule: Rule): String {
     val parts = mutableListOf(
         (if (rule.kind == RuleKind.ALLOW) "Allow" else "Block") + " " + matcherText(rule),
     )
-    if (rule.emptyNameOnly && rule.matcher in NUMBER_MATCHERS) parts += "empty name only"
     rule.window?.let { parts += "${clock(it.startMinute)}-${clock(it.endMinute)}" }
     if (rule.kind == RuleKind.BLOCK) parts += actionText(rule.action ?: BlockAction.REJECT_QUIET)
     return parts.joinToString(", ")
 }
 
-private val NUMBER_MATCHERS = setOf(MatcherType.EXACT, MatcherType.PREFIX)
-
 private fun matcherText(rule: Rule): String = when (rule.matcher) {
     MatcherType.EXACT -> "exact ${rule.pattern}"
     MatcherType.PREFIX -> "prefix ${rule.pattern}"
-    MatcherType.NAME_WILDCARD -> "name ${rule.pattern}"
-    MatcherType.EMPTY_NAME -> "empty name"
+    MatcherType.NAME_WILDCARD -> "caller ID name ${rule.pattern}"
+    MatcherType.EMPTY_NAME -> "no caller ID name"
     MatcherType.NO_NUMBER -> "no number"
 }
 

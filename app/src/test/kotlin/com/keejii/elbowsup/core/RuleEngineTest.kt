@@ -14,13 +14,12 @@ class RuleEngineTest {
         matcher: MatcherType,
         pattern: String? = null,
         action: BlockAction = BlockAction.REJECT_QUIET,
-        emptyNameOnly: Boolean = false,
         window: TimeWindow? = null,
         enabled: Boolean = true,
-    ) = Rule(nextId++, enabled, RuleKind.BLOCK, matcher, pattern, emptyNameOnly, window, action)
+    ) = Rule(nextId++, enabled, RuleKind.BLOCK, matcher, pattern, window, action)
 
     private fun allow(matcher: MatcherType, pattern: String? = null) =
-        Rule(nextId++, true, RuleKind.ALLOW, matcher, pattern, false, null, null)
+        Rule(nextId++, true, RuleKind.ALLOW, matcher, pattern, null, null)
 
     private fun env(
         stage: Stage = Stage.LATE,
@@ -166,27 +165,16 @@ class RuleEngineTest {
     }
 
     @Test
-    fun theEmptyNameFlagRestrictsANumberRule() {
-        val rules = listOf(block(MatcherType.PREFIX, "+1415", emptyNameOnly = true))
-        assertEquals(Outcome.REJECT_QUIET, outcome(rules, name = null))
-        assertEquals(Outcome.ALLOW, outcome(rules, name = "School"))
-    }
-
-    @Test
     fun theEarlyStageDefersInsteadOfGuessingAName() {
         val wildcard = listOf(block(MatcherType.NAME_WILDCARD, "likely*"))
         val emptyName = listOf(block(MatcherType.EMPTY_NAME))
-        val flagged = listOf(block(MatcherType.PREFIX, "+1415", emptyNameOnly = true))
         assertEquals(Outcome.DEFER, outcome(wildcard, env = env(Stage.EARLY)))
         assertEquals(Outcome.DEFER, outcome(emptyName, env = env(Stage.EARLY)))
-        assertEquals(Outcome.DEFER, outcome(flagged, env = env(Stage.EARLY)))
     }
 
     @Test
-    fun theEarlyStageDoesNotDeferWhenTheNumberSideCannotMatch() {
-        val flagged = listOf(block(MatcherType.PREFIX, "+1604", emptyNameOnly = true))
+    fun theEarlyStageDoesNotDeferWhenThereIsNoNumberToJudge() {
         val emptyName = listOf(block(MatcherType.EMPTY_NAME))
-        assertEquals(Outcome.ALLOW, outcome(flagged, env = env(Stage.EARLY)))
         assertEquals(Outcome.ALLOW, outcome(emptyName, num = null, env = env(Stage.EARLY)))
     }
 

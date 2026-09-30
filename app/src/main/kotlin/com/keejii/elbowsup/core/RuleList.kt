@@ -5,7 +5,6 @@ private fun sameIdentity(left: Rule, right: Rule): Boolean =
     left.kind == right.kind &&
         left.matcher == right.matcher &&
         left.pattern == right.pattern &&
-        left.emptyNameOnly == right.emptyNameOnly &&
         left.window == right.window
 
 /**

@@ -14,9 +14,9 @@ import org.junit.Test
 class BlockerJsonTest {
     private val window = TimeWindow(setOf(DayOfWeek.MONDAY, DayOfWeek.FRIDAY), 22 * 60, 7 * 60)
 
-    private val block = Rule(3, true, RuleKind.BLOCK, MatcherType.PREFIX, "+1415", true, window, BlockAction.SILENCE)
-    private val allow = Rule(4, false, RuleKind.ALLOW, MatcherType.EXACT, "+14155551234", false, null, null)
-    private val hidden = Rule(5, true, RuleKind.BLOCK, MatcherType.NO_NUMBER, null, false, null, BlockAction.REJECT)
+    private val block = Rule(3, true, RuleKind.BLOCK, MatcherType.PREFIX, "+1415", window, BlockAction.SILENCE)
+    private val allow = Rule(4, false, RuleKind.ALLOW, MatcherType.EXACT, "+14155551234", null, null)
+    private val hidden = Rule(5, true, RuleKind.BLOCK, MatcherType.NO_NUMBER, null, null, BlockAction.REJECT)
 
     @Test
     fun rulesRoundTripInOrder() {
@@ -45,6 +45,15 @@ class BlockerJsonTest {
         val json = BlockerJson.rulesToJson(listOf(block, allow))
             .replace("\"PREFIX\"", "\"REGEX\"")
         assertEquals(listOf(allow), BlockerJson.rulesFromJson(json))
+    }
+
+    @Test
+    fun aRuleSavedWithTheRemovedEmptyNameFlagIsDroppedNotWidened() {
+        val ticked = "{\"id\":1,\"kind\":\"BLOCK\",\"matcher\":\"PREFIX\",\"pattern\":\"+1415\"," +
+            "\"emptyNameOnly\":true,\"action\":\"REJECT\"}"
+        val unticked = "{\"id\":2,\"kind\":\"BLOCK\",\"matcher\":\"PREFIX\",\"pattern\":\"+1604\"," +
+            "\"emptyNameOnly\":false,\"action\":\"REJECT\"}"
+        assertEquals(listOf(2L), BlockerJson.rulesFromJson("[$ticked,$unticked]").map { it.id })
     }
 
     @Test

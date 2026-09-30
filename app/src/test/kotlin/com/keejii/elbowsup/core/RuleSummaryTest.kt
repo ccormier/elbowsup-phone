@@ -9,10 +9,9 @@ class RuleSummaryTest {
         kind: RuleKind = RuleKind.BLOCK,
         matcher: MatcherType = MatcherType.PREFIX,
         pattern: String? = "+1415",
-        emptyNameOnly: Boolean = false,
         action: BlockAction? = BlockAction.REJECT_QUIET,
         window: TimeWindow? = null,
-    ) = Rule(1, true, kind, matcher, pattern, emptyNameOnly, window, action)
+    ) = Rule(1, true, kind, matcher, pattern, window, action)
 
     @Test
     fun everyActionIsNamed() {
@@ -34,17 +33,17 @@ class RuleSummaryTest {
         val name = rule(matcher = MatcherType.NAME_WILDCARD, pattern = "likely*")
         val empty = rule(matcher = MatcherType.EMPTY_NAME, pattern = null)
         val hidden = rule(matcher = MatcherType.NO_NUMBER, pattern = null)
-        assertEquals("Block name likely*, reject (hide missed call)", ruleSummary(name))
-        assertEquals("Block empty name, reject (hide missed call)", ruleSummary(empty))
+        assertEquals("Block caller ID name likely*, reject (hide missed call)", ruleSummary(name))
+        assertEquals("Block no caller ID name, reject (hide missed call)", ruleSummary(empty))
         assertEquals("Block no number, reject (hide missed call)", ruleSummary(hidden))
     }
 
     @Test
-    fun theFlagAndAWindowAreMentioned() {
+    fun aWindowIsMentioned() {
         val night = TimeWindow(setOf(DayOfWeek.MONDAY), 22 * 60, 7 * 60)
         assertEquals(
-            "Block prefix +1415, empty name only, 22:00-07:00, reject (hide missed call)",
-            ruleSummary(rule(emptyNameOnly = true, window = night)),
+            "Block prefix +1415, 22:00-07:00, reject (hide missed call)",
+            ruleSummary(rule(window = night)),
         )
     }
 }

@@ -79,7 +79,7 @@ class BlockedSection(
     }
 
     private fun allow(number: String) {
-        val rule = Rule(runtime.nextId(), true, RuleKind.ALLOW, MatcherType.EXACT, number, false, null, null)
+        val rule = Rule(runtime.nextId(), true, RuleKind.ALLOW, MatcherType.EXACT, number, null, null)
         runtime.update { it.copy(rules = addRule(it.rules, rule)) }
         activity.toast(activity.getString(R.string.elbowsup_blocked_allowed, number.formatPhoneNumber()))
     }

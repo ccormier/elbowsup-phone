@@ -11,7 +11,7 @@ class DialerPlanTest {
     private var nextId = 1L
 
     private fun block(matcher: MatcherType, pattern: String?, action: BlockAction = BlockAction.REJECT_QUIET) =
-        Rule(nextId++, true, RuleKind.BLOCK, matcher, pattern, false, null, action)
+        Rule(nextId++, true, RuleKind.BLOCK, matcher, pattern, null, action)
 
     private fun plan(
         rules: List<Rule>,
@@ -137,7 +137,7 @@ class DialerPlanTest {
 
     @Test
     fun anAllowRuleBeatsALaterBlockRule() {
-        val allow = Rule(nextId++, true, RuleKind.ALLOW, MatcherType.NAME_WILDCARD, "Likely Friend", false, null, null)
+        val allow = Rule(nextId++, true, RuleKind.ALLOW, MatcherType.NAME_WILDCARD, "Likely Friend", null, null)
         val rules = listOf(allow, block(MatcherType.NAME_WILDCARD, "Likely*"))
         val result = plan(rules, name = "Likely Friend")
         assertEquals(DialerAction.RING, result.action)

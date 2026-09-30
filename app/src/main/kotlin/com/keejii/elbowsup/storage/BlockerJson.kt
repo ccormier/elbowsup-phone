@@ -15,6 +15,7 @@ private data class RuleDto(
     val kind: String? = null,
     val matcher: String? = null,
     val pattern: String? = null,
+    /** Removed setting: a rule that had it on cannot be read back as a broader rule, so it is dropped. */
     val emptyNameOnly: Boolean = false,
     val days: String? = null,
     val start: Int? = null,
@@ -42,7 +43,9 @@ object BlockerJson {
     fun rulesToJson(rules: List<Rule>): String = gson.toJson(rules.map { it.toDto() })
 
     fun rulesFromJson(json: String?): List<Rule> =
-        parse(json, Array<RuleDto>::class.java).mapNotNull { runCatching { it.toRule() }.getOrNull() }
+        parse(json, Array<RuleDto>::class.java)
+            .filterNot { it.emptyNameOnly }
+            .mapNotNull { runCatching { it.toRule() }.getOrNull() }
 
     fun schedulesToJson(schedules: List<PauseSchedule>): String = gson.toJson(schedules.map { it.toDto() })
 
@@ -62,7 +65,6 @@ private fun Rule.toDto() = RuleDto(
     kind = kind.name,
     matcher = matcher.name,
     pattern = pattern,
-    emptyNameOnly = emptyNameOnly,
     days = window?.days?.encode(),
     start = window?.startMinute,
     end = window?.endMinute,
@@ -75,7 +77,6 @@ private fun RuleDto.toRule() = Rule(
     kind = RuleKind.valueOf(requireNotNull(kind)),
     matcher = MatcherType.valueOf(requireNotNull(matcher)),
     pattern = pattern,
-    emptyNameOnly = emptyNameOnly,
     window = windowOf(days, start, end),
     action = action?.let { BlockAction.valueOf(it) },
 )

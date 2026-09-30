@@ -6,7 +6,6 @@ import java.time.DayOfWeek
 private const val DEFAULT_START = 22 * MINUTES_PER_HOUR
 private const val DEFAULT_END = 7 * MINUTES_PER_HOUR
 private val NUMBER_TEXT = Regex("""\+?\d+""")
-private val NUMBER_MATCHERS = setOf(MatcherType.EXACT, MatcherType.PREFIX)
 
 val WEEKDAYS: Set<DayOfWeek> = setOf(
     DayOfWeek.MONDAY,
@@ -30,7 +29,6 @@ data class RuleDraft(
     val kind: RuleKind = RuleKind.BLOCK,
     val matcher: MatcherType = MatcherType.PREFIX,
     val patternText: String = "",
-    val emptyNameOnly: Boolean = false,
     val customWindow: Boolean = false,
     val days: Set<DayOfWeek> = WEEKDAYS,
     val startMinute: Int = DEFAULT_START,
@@ -50,7 +48,6 @@ data class RuleDraft(
                 kind = kind,
                 matcher = matcher,
                 pattern = pattern,
-                emptyNameOnly = emptyNameOnly && matcher in NUMBER_MATCHERS,
                 window = if (customWindow) TimeWindow(days, startMinute, endMinute) else null,
                 action = if (kind == RuleKind.BLOCK) action else null,
             ),
@@ -94,7 +91,6 @@ fun draftOf(rule: Rule): RuleDraft = RuleDraft(
     kind = rule.kind,
     matcher = rule.matcher,
     patternText = rule.pattern.orEmpty(),
-    emptyNameOnly = rule.emptyNameOnly,
     customWindow = rule.window != null,
     days = rule.window?.days ?: WEEKDAYS,
     startMinute = rule.window?.startMinute ?: DEFAULT_START,

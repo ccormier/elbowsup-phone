@@ -6,10 +6,10 @@ import org.junit.Test
 
 class RuleListTest {
     private fun block(id: Long, pattern: String, action: BlockAction = BlockAction.REJECT_QUIET) =
-        Rule(id, true, RuleKind.BLOCK, MatcherType.PREFIX, pattern, false, null, action)
+        Rule(id, true, RuleKind.BLOCK, MatcherType.PREFIX, pattern, null, action)
 
     private fun allow(id: Long, pattern: String) =
-        Rule(id, true, RuleKind.ALLOW, MatcherType.EXACT, pattern, false, null, null)
+        Rule(id, true, RuleKind.ALLOW, MatcherType.EXACT, pattern, null, null)
 
     private val a = block(1, "+1415")
     private val b = block(2, "+1604")

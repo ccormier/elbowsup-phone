@@ -17,7 +17,7 @@ private const val TAG = "ElbowsUpDebug"
  * Sets up blocker state from adb, until there is a screen for it:
  *
  *   adb shell am broadcast -n <pkg>/com.keejii.elbowsup.debug.DebugSeedReceiver --es op clear
- *   ... --es op add --es matcher PREFIX --es pattern +1226 --es action SILENCE [--es kind ALLOW] [--ez emptyNameOnly true]
+ *   ... --es op add --es matcher PREFIX --es pattern +1226 --es action SILENCE [--es kind ALLOW]
  *   ... --es op setup        (marks setup complete)
  *   ... --es op pause --es mode resume|none
  *   ... --es op dump         (logs the state and recent blocked events under tag ElbowsUpDebug)
@@ -41,7 +41,6 @@ class DebugSeedReceiver : BroadcastReceiver() {
                     kind = RuleKind.valueOf(intent.getStringExtra("kind") ?: RuleKind.BLOCK.name),
                     matcher = MatcherType.valueOf(intent.getStringExtra("matcher") ?: MatcherType.PREFIX.name),
                     pattern = intent.getStringExtra("pattern"),
-                    emptyNameOnly = intent.getBooleanExtra("emptyNameOnly", false),
                     window = null,
                     action = intent.getStringExtra("action")?.let { BlockAction.valueOf(it) },
                 )

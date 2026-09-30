@@ -34,7 +34,7 @@
     <string name="elbowsup_setup_screening_button">Set as call screening app</string>
     <string name="elbowsup_setup_contacts">Elbows Up needs to read your contacts so the people you know always ring through.</string>
     <string name="elbowsup_setup_contacts_button">Allow contacts</string>
-    <string name="elbowsup_setup_dialer">Elbows Up is not your phone app. Rules that use the caller name, and answer and hang up, need it.</string>
+    <string name="elbowsup_setup_dialer">Elbows Up is not your phone app. Rules that use the caller ID name, and answer and hang up, need it.</string>
     <string name="elbowsup_setup_dialer_button">Make default phone app</string>
 
     <!-- Rules list -->
@@ -53,14 +53,13 @@
     <string name="elbowsup_kind_allow">Allow</string>
     <string name="elbowsup_matcher_prefix">Number starts with</string>
     <string name="elbowsup_matcher_exact">Exact number</string>
-    <string name="elbowsup_matcher_name">Caller name</string>
-    <string name="elbowsup_matcher_empty_name">No caller name</string>
+    <string name="elbowsup_matcher_name">Caller ID name</string>
+    <string name="elbowsup_matcher_empty_name">No caller ID name</string>
     <string name="elbowsup_matcher_no_number">Hidden number</string>
     <string name="elbowsup_hint_prefix">Start of number, e.g. +1415</string>
     <string name="elbowsup_hint_exact">Number, e.g. +14155551234</string>
-    <string name="elbowsup_hint_name">Name, e.g. Likely*</string>
-    <string name="elbowsup_note_name_rules">* matches any text and ? matches one character. Name rules are decided as the call reaches this phone, just before it would ring.</string>
-    <string name="elbowsup_only_when_no_name">Only when the caller has no name</string>
+    <string name="elbowsup_hint_name">Caller ID name, e.g. Likely*</string>
+    <string name="elbowsup_note_name_rules">* matches any text and ? matches one character. Caller ID name rules use the name your carrier sends with the call, not your contacts. They are decided as the call reaches this phone, just before it would ring.</string>
     <string name="elbowsup_when_label">When</string>
     <string name="elbowsup_when_always">Always</string>
     <string name="elbowsup_when_window">Only during a time window</string>

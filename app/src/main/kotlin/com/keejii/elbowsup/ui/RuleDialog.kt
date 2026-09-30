@@ -68,7 +68,6 @@ class RuleDialog(
     private fun showDraft() = binding.apply {
         (if (draft.kind == RuleKind.BLOCK) elbowsupKindBlock else elbowsupKindAllow).isChecked = true
         elbowsupRulePattern.setText(draft.patternText)
-        elbowsupRuleEmptyNameOnly.isChecked = draft.emptyNameOnly
         (if (draft.customWindow) elbowsupWhenWindow else elbowsupWhenAlways).isChecked = true
         actionButtons().forEach { (action, button) -> button.isChecked = action == draft.action }
         elbowsupActionAnswerHangup.isEnabled = answerHangupAvailable
@@ -104,7 +103,6 @@ class RuleDialog(
             },
         )
         elbowsupRuleNameNote.beVisibleIf(matcher == MatcherType.NAME_WILDCARD || matcher == MatcherType.EMPTY_NAME)
-        elbowsupRuleEmptyNameOnly.beVisibleIf(matcher in NUMBER_MATCHERS)
         elbowsupRuleActionHolder.beVisibleIf(elbowsupKindBlock.isChecked)
         window.setVisible(elbowsupWhenWindow.isChecked)
     }
@@ -115,7 +113,6 @@ class RuleDialog(
             kind = if (it.elbowsupKindBlock.isChecked) RuleKind.BLOCK else RuleKind.ALLOW,
             matcher = matcher,
             patternText = it.elbowsupRulePattern.text?.toString().orEmpty(),
-            emptyNameOnly = it.elbowsupRuleEmptyNameOnly.isChecked,
             customWindow = it.elbowsupWhenWindow.isChecked,
             days = window.days,
             startMinute = window.startMinute,

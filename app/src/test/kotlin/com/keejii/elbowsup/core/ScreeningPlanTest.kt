@@ -18,10 +18,10 @@ class ScreeningPlanTest {
         matcher: MatcherType,
         pattern: String? = null,
         action: BlockAction = BlockAction.REJECT_QUIET,
-    ) = Rule(nextId++, true, RuleKind.BLOCK, matcher, pattern, false, null, action)
+    ) = Rule(nextId++, true, RuleKind.BLOCK, matcher, pattern, null, action)
 
     private fun allow(pattern: String) =
-        Rule(nextId++, true, RuleKind.ALLOW, MatcherType.EXACT, pattern, false, null, null)
+        Rule(nextId++, true, RuleKind.ALLOW, MatcherType.EXACT, pattern, null, null)
 
     private fun snapshot(rules: List<Rule>, setup: Boolean = true, pause: TimedPause = TimedPause.NONE) =
         BlockerSnapshot(rules, emptyList(), pause, setup)

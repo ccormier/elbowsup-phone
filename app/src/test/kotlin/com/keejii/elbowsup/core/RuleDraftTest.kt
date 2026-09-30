@@ -53,13 +53,6 @@ class RuleDraftTest {
     }
 
     @Test
-    fun theEmptyNameFlagOnlyAppliesToNumberMatchers() {
-        assertTrue(valid(RuleDraft(patternText = "415", emptyNameOnly = true)).emptyNameOnly)
-        val name = RuleDraft(matcher = MatcherType.NAME_WILDCARD, patternText = "a*", emptyNameOnly = true)
-        assertFalse(valid(name).emptyNameOnly)
-    }
-
-    @Test
     fun anAllowRuleHasNoActionAndABlockRuleHasOne() {
         assertNull(valid(RuleDraft(kind = RuleKind.ALLOW, patternText = "415", action = BlockAction.SILENCE)).action)
         assertEquals(BlockAction.SILENCE, valid(RuleDraft(patternText = "415", action = BlockAction.SILENCE)).action)
@@ -82,9 +75,9 @@ class RuleDraftTest {
     @Test
     fun aRuleRoundTripsThroughItsDraft() {
         val window = TimeWindow(setOf(DayOfWeek.FRIDAY), 22 * 60, 7 * 60)
-        val rule = Rule(7, false, RuleKind.BLOCK, MatcherType.PREFIX, "+1415", true, window, BlockAction.ANSWER_HANGUP)
+        val rule = Rule(7, false, RuleKind.BLOCK, MatcherType.PREFIX, "+1415", window, BlockAction.ANSWER_HANGUP)
         assertEquals(rule, valid(draftOf(rule)))
-        val hidden = Rule(8, true, RuleKind.BLOCK, MatcherType.NO_NUMBER, null, false, null, BlockAction.REJECT)
+        val hidden = Rule(8, true, RuleKind.BLOCK, MatcherType.NO_NUMBER, null, null, BlockAction.REJECT)
         assertEquals(hidden, valid(draftOf(hidden)))
     }
 

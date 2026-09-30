@@ -8,7 +8,6 @@ enum class BlockAction { REJECT_QUIET, REJECT, SILENCE, ANSWER_HANGUP }
 
 /**
  * One row of the ordered list; list order is priority. A null [window] means always.
- * [emptyNameOnly] only applies to [MatcherType.EXACT] and [MatcherType.PREFIX].
  */
 data class Rule(
     val id: Long,
@@ -16,7 +15,6 @@ data class Rule(
     val kind: RuleKind,
     val matcher: MatcherType,
     val pattern: String?,
-    val emptyNameOnly: Boolean,
     val window: TimeWindow?,
     val action: BlockAction?,
 )

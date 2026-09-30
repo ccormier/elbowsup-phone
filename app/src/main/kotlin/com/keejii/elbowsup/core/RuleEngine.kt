@@ -49,8 +49,8 @@ private fun decisionFor(rule: Rule, call: CallInfo, env: Env): Decision? {
 
 private fun verdictFor(rule: Rule, call: CallInfo, stage: Stage): Verdict = when (rule.matcher) {
     MatcherType.NO_NUMBER -> verdict(call.number == null)
-    MatcherType.EXACT -> numberVerdict(call.number != null && call.number == rule.pattern, rule, call, stage)
-    MatcherType.PREFIX -> numberVerdict(startsWithPattern(call.number, rule.pattern), rule, call, stage)
+    MatcherType.EXACT -> verdict(call.number != null && call.number == rule.pattern)
+    MatcherType.PREFIX -> verdict(startsWithPattern(call.number, rule.pattern))
     MatcherType.EMPTY_NAME -> emptyNameVerdict(call, stage)
     MatcherType.NAME_WILDCARD -> nameWildcardVerdict(rule, call, stage)
 }
@@ -67,13 +67,6 @@ private fun emptyNameVerdict(call: CallInfo, stage: Stage): Verdict = when {
 private fun nameWildcardVerdict(rule: Rule, call: CallInfo, stage: Stage): Verdict = when {
     stage == Stage.EARLY -> Verdict.NEEDS_NAME
     else -> verdict(call.name != null && wildcardMatches(rule.pattern, call.name))
-}
-
-private fun numberVerdict(numberMatches: Boolean, rule: Rule, call: CallInfo, stage: Stage): Verdict = when {
-    !numberMatches -> Verdict.NO_MATCH
-    !rule.emptyNameOnly -> Verdict.MATCH
-    stage == Stage.EARLY -> Verdict.NEEDS_NAME
-    else -> verdict(call.name == null)
 }
 
 private fun verdict(matches: Boolean) = if (matches) Verdict.MATCH else Verdict.NO_MATCH
