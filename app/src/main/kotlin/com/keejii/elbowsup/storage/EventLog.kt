@@ -59,6 +59,13 @@ class EventLog(private val file: File, private val cap: Int = DEFAULT_CAP) {
         return true
     }
 
+    @Synchronized
+    fun clear() {
+        if (events.isEmpty()) return
+        events.clear()
+        rewrite()
+    }
+
     /** Newest first. */
     @Synchronized
     fun all(): List<BlockedEvent> = events.asReversed().toList()

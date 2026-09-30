@@ -19,6 +19,7 @@ import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
 import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder
+import com.keejii.elbowsup.ui.BlockedRecents
 import org.fossify.commons.adapters.MyRecyclerViewListAdapter
 import org.fossify.commons.dialogs.ConfirmationDialog
 import org.fossify.commons.dialogs.FeatureLockedDialog
@@ -524,6 +525,8 @@ class RecentCallsAdapter(
                     setTextColor(if (call.type == Calls.MISSED_TYPE) missedCallColor else secondaryTextColor)
                     setTextSize(TypedValue.COMPLEX_UNIT_PX, currentFontSize * 0.8f)
                 }
+
+                BlockedRecents.annotate(activity, itemRecentsDateTime, call, refreshItemsListener == null) // ELBOWSUP
 
                 itemRecentsDateTimeDurationSeparator.apply {
                     text = "•"

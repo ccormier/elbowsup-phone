@@ -58,5 +58,6 @@ current; it is what to check first when a merge conflicts.
 | `app/src/main/kotlin/org/fossify/phone/services/SimpleCallScreeningService.kt` | first statement of `onScreenCall` asks the blocker for a verdict and returns if it answered; otherwise Fossify's screening runs unchanged (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/helpers/CallContactHelper.kt` | with no contact match, show the carrier caller name instead of the number (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/services/CallService.kt` | `onCallAdded` asks the blocker whether it dealt with the call and returns if so (import plus 1 line) |
+| `app/src/main/kotlin/org/fossify/phone/adapters/RecentCallsAdapter.kt` | `bind` marks a blocked call in the row's time text (import plus 1 line) |
 
 Design and plan: `docs/superpowers/specs/2026-09-29-elbowsup-blocker-integration-design.md`.

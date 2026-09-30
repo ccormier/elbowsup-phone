@@ -86,4 +86,18 @@
     <string name="elbowsup_schedule_edit">Edit schedule</string>
     <string name="elbowsup_schedule_name">Name</string>
     <string name="elbowsup_error_name_required">Give the schedule a name.</string>
+
+    <string name="elbowsup_recents_suffix">%1$s • %2$s</string>
+    <string name="elbowsup_joined">%1$s · %2$s</string>
+    <string name="elbowsup_recents_blocked">Blocked</string>
+    <string name="elbowsup_recents_blocked_detail">Blocked · %1$s</string>
+    <string name="elbowsup_blocked_label">Recent blocked calls</string>
+    <string name="elbowsup_blocked_explainer">Calls this app blocked, newest first. Tap one to allow that number.</string>
+    <string name="elbowsup_blocked_empty">Nothing has been blocked yet.</string>
+    <string name="elbowsup_blocked_clear">Clear list</string>
+    <string name="elbowsup_blocked_dialog_title">Blocked call</string>
+    <string name="elbowsup_blocked_allow">Allow this number</string>
+    <string name="elbowsup_blocked_remove">Remove from list</string>
+    <string name="elbowsup_blocked_hidden">Hidden number</string>
+    <string name="elbowsup_blocked_allowed">%1$s is now always allowed</string>
 </resources>

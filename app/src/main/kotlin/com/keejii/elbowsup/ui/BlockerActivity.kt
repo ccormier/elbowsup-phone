@@ -40,6 +40,7 @@ class BlockerActivity : SimpleActivity() {
     private val runtime by lazy { BlockerRuntime.get(this) }
     private val rules by lazy { RulesSection(this, binding, runtime) }
     private val schedules by lazy { SchedulesSection(this, binding, runtime) }
+    private val blocked by lazy { BlockedSection(this, binding, runtime) { render() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,10 +108,16 @@ class BlockerActivity : SimpleActivity() {
         renderSetup(screening, contacts)
         rules.render(snapshot.rules)
         schedules.render(snapshot.schedules)
+        blocked.render()
         PauseNotifier.sync(this)
 
         updateTextColors(binding.elbowsupHolder)
-        arrayOf(binding.elbowsupSetupLabel, binding.elbowsupRulesLabel, binding.elbowsupSchedulesLabel)
+        arrayOf(
+            binding.elbowsupSetupLabel,
+            binding.elbowsupRulesLabel,
+            binding.elbowsupSchedulesLabel,
+            binding.elbowsupBlockedLabel,
+        )
             .forEach { it.setTextColor(getProperPrimaryColor()) }
     }
 

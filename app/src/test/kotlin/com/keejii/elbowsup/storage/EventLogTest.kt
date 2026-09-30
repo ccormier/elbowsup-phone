@@ -19,6 +19,17 @@ class EventLogTest {
     private fun log(cap: Int = 500, name: String = "events.jsonl") = EventLog(File(folder.root, name), cap)
 
     @Test
+    fun clearEmptiesTheLogAndTheFileButKeepsIdsIncreasing() {
+        val file = File(folder.root, "clear.jsonl")
+        val log = EventLog(file)
+        val first = log.append(event(1_000))
+        log.clear()
+        assertTrue(log.all().isEmpty())
+        assertTrue(EventLog(file).all().isEmpty())
+        assertTrue(log.append(event(2_000)) > first)
+    }
+
+    @Test
     fun appendAssignsIncreasingIdsAndListsNewestFirst() {
         val log = log()
         val first = log.append(event(1_000))

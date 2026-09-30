@@ -120,7 +120,7 @@ Every upstream file we edit, marked `// ELBOWSUP` in the source and listed in `F
 | `services/CallService.kt` | `onCallAdded` after `super`: blocker hook that may claim the call and skip UI (import plus 1 line) | 5 |
 | `AndroidManifest.xml` | one contiguous block: `BlockerActivity` | 4 |
 | `res/menu/menu.xml`, `MainActivity.kt` | one "Call blocker" item and its handler (~4 lines) | 4 |
-| `RecentCallsAdapter.kt` / recents fragment | blocked-row annotation and detail; seam chosen in its phase | 7 |
+| `adapters/RecentCallsAdapter.kt` | one line in the row binding that annotates the time text (import plus 1 line) | 7 |
 
 ## 7. v1 scope (confirmed 2026-09-29)
 
@@ -168,7 +168,11 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 
 **Phase 6 — Ringing matrix (done; it changed the design):** run against our own ringer on caiman. Cold start, vibrate mode and silent mode passed, but Priority-only Do Not Disturb with starred-only callers (the default Sleeping mode) failed: a starred contact did not ring, and no third-party dialer can be exempted from Android's mute (§4.B). We replaced the takeover with Telecom's ringing, removed `Ringer`, `ringPolicy` and the manifest flag, and measured the ring leak instead. Not tested with Telecom ringing: Bluetooth, second call, per-contact ringtones, because Telecom owns all of them.
 
-**Phase 7 — Recents integration:** blocked annotation and detail dialog; "allow this number / add rule" actions.
+**Phase 7 — Recents integration:** blocked annotation in Recents, and a recent-blocked-calls list with an "allow this number" action on the blocker screen.
+- Status 2026-09-29: implemented (145 unit tests; detekt and lint clean, no lint findings in Kotlin; the new strings only add the usual missing-translation warnings). `storage/BlockedMatch.kt` pairs a call-log row with an event by normalized number and start time (event within −2 s to +20 s of the row, closest wins, newest on a tie) and is unit-tested. `ui/BlockedRecents.kt` appends " • Blocked" to a row's time text, plus the rule summary in the call-details list, and does nothing for outgoing rows; a row of the platform's own blocked type shows "Blocked" even with no event. The only upstream edit is one line in `RecentCallsAdapter.bind`.
+- Design notes: a late reject or answer-and-hang-up is logged by the platform as an ordinary rejected or answered call, so only the event log can identify it, which is why rows are matched by number and time and not by call type. Grouped rows show the annotation for the group's newest call. "Allow this number" adds an exact-number allow rule at the top of the rules; "Remove from list" and "Clear list" edit only our event log. Actions live on the blocker screen and not in Recents, so Recents needed no menu or dialog edits.
+- Device-verified on caiman with its real events and call log: Recents marked the 226-220-1236 group and the earlier blocked 1235 and 1234 groups as blocked and left your starred contact and ordinary missed calls plain; the blocker screen listed recent blocked calls with name, number, time and rule summary; "Allow this number" saved an allow rule that appeared in Rules; "Remove from list" dropped the entry. Not device-verified: the rule summary in the call-details dialog (in Fossify, tapping a Recents row calls the number back, and the dialog is reached from a menu I did not drive) and "Clear list" (unit-tested).
+- Exit: a blocked call shows in Recents and can be allowed from the blocker screen.
 
 **Phase 8 — Hardening and docs:** device matrix, `git merge upstream/main` rehearsal on a scratch branch, `FORK.md` ledger, `CONTEXT.md` glossary, ADRs (two-stage evaluation, letting Telecom ring and why owning it fails under Do Not Disturb, touch-point policy).
 
@@ -189,5 +193,5 @@ Open:
 - **Late silence is timing-based:** it relies on repeating `silenceRinger()` until Telecom's ring has started. If a future Android release changes when Telecom starts ringing, a name-based silence could ring longer; a reject and a screening-time silence are unaffected.
 - **A late reject is not a block in the platform log:** it shows as a rejected call in Recents (Phase 7 annotates it from our event log).
 - **`CallService` hook** can regress the upstream call UI if the claim path skips setup wrongly; keep the skipped path tiny.
-- **Recents seam** may need a bigger upstream edit than the ledger promises.
+- **Recents rows are matched by number and time, not by call type.** Two blocked calls from one number within a few seconds could pair with the wrong event; the summary shown may then be the neighbouring call's.
 - **License:** Fossify Phone is GPL-3.0, so all code here is GPL-3.0; keep attribution intact.
