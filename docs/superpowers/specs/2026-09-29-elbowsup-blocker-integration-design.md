@@ -82,7 +82,7 @@ Upstream `SimpleCallScreeningService` already blocks from the system blocked-num
 
 ### D. Android version gating
 
-Facts from the SDK's API data: `isEmergencyNumber`, `setSilenceCall`, `RoleManager`, `getCallDirection` are 29; Fossify's minSdk is 26. We do not raise minSdk (that edits a dependabot-churned line). The blocker is off below 29. Answer and hang up needs only the dialer role, because the dialer re-evaluates the same rules itself and needs no `Call.Details.getId()` handoff (API 35) between screening and the in-call service; without the dialer role it behaves as reject quietly. Gate with explicit `SDK_INT` checks, never try/catch.
+Facts from the SDK's API data: `isEmergencyNumber`, `setSilenceCall`, `RoleManager`, `getCallDirection` are 29; Fossify's minSdk is 26. We do not raise minSdk (that edits a dependabot-churned line). The blocker is off below 29. Answer and hang up needs only the dialer role, because the dialer re-evaluates the same rules itself and needs no `Call.Details.getId()` handoff (API 35) between screening and the in-call service; without the dialer role it behaves as Reject, hide missed call. Gate with explicit `SDK_INT` checks, never try/catch.
 
 ### E. Contacts
 
@@ -126,7 +126,7 @@ Every upstream file we edit, marked `// ELBOWSUP` in the source and listed in `F
 
 The POC's feature list is not inherited. v1:
 
-- **In:** contacts + emergency always allowed; ordered rules, allow and block; matchers exact number, prefix, no-number, name wildcard (CNAM), empty name; per-rule schedule Always or a custom window (days, start, end; may cross midnight, the start day owns the spill); actions reject quietly (default), reject, silence, answer and hang up (35+); timed pause (15 min / 1 h / until resume) with a resume notification; named schedules that pause blocking during their window (name, days, start, end, enabled); blocked-event log; screening-role setup and status; blocked annotation in Recents.
+- **In:** contacts + emergency always allowed; ordered rules, allow and block; matchers exact number, prefix, no-number, name wildcard (CNAM), empty name; per-rule schedule Always or a custom window (days, start, end; may cross midnight, the start day owns the spill); actions Reject, hide missed call (default), reject, silence, answer and hang up (35+); timed pause (15 min / 1 h / until resume) with a resume notification; named schedules that pause blocking during their window (name, days, start, end, enabled); blocked-event log; screening-role setup and status; blocked annotation in Recents.
 - **Deferred:** regex matchers (and their 50 ms time budget), the "no readable contacts → pause" safeguard and country override, folding runs of attempts in Recents, area-code/prefix "chips" from the call log.
 
 ## 8. Phases

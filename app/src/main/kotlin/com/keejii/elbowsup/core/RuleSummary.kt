@@ -22,8 +22,8 @@ private fun matcherText(rule: Rule): String = when (rule.matcher) {
 }
 
 private fun actionText(action: BlockAction): String = when (action) {
-    BlockAction.REJECT_QUIET -> "reject quietly"
-    BlockAction.REJECT -> "reject"
+    BlockAction.REJECT_QUIET -> "reject (hide missed call)"
+    BlockAction.REJECT -> "reject (show missed call)"
     BlockAction.SILENCE -> "silence"
     BlockAction.ANSWER_HANGUP -> "answer and hang up"
 }

@@ -78,7 +78,7 @@ class ScreeningPlanTest {
         assertEquals("+14155551234", event.number)
         assertEquals(BlockAction.REJECT, event.action)
         assertEquals(rule.id, event.ruleId)
-        assertEquals("Block prefix +1415, reject", event.ruleSummary)
+        assertEquals("Block prefix +1415, reject (show missed call)", event.ruleSummary)
     }
 
     @Test

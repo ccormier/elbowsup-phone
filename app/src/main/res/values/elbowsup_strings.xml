@@ -67,11 +67,11 @@
     <string name="elbowsup_window_starts">Starts %1$s</string>
     <string name="elbowsup_window_ends">Ends %1$s</string>
     <string name="elbowsup_action_label">What to do</string>
-    <string name="elbowsup_action_reject_quiet">Reject quietly</string>
-    <string name="elbowsup_action_reject">Reject</string>
+    <string name="elbowsup_action_reject_quiet">Reject, hide missed call</string>
+    <string name="elbowsup_action_reject">Reject, show missed call</string>
     <string name="elbowsup_action_silence">Silence</string>
     <string name="elbowsup_action_answer_hangup">Answer and hang up</string>
-    <string name="elbowsup_action_answer_hangup_unavailable">Answer and hang up needs Android 15 and Elbows Up as your phone app. Until then it rejects quietly.</string>
+    <string name="elbowsup_action_answer_hangup_unavailable">Answer and hang up needs Elbows Up as your phone app. Until then it rejects and hides the missed call.</string>
     <string name="elbowsup_enabled">Enabled</string>
     <string name="elbowsup_error_pattern_required">Enter a value to match.</string>
     <string name="elbowsup_error_not_a_number">Use digits, with an optional + at the start.</string>
