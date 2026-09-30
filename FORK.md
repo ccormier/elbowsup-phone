@@ -57,8 +57,6 @@ current; it is what to check first when a merge conflicts.
 | `app/src/main/kotlin/org/fossify/phone/activities/MainActivity.kt` | opens the call blocker screen from that menu item (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/services/SimpleCallScreeningService.kt` | first statement of `onScreenCall` asks the blocker for a verdict and returns if it answered; otherwise Fossify's screening runs unchanged (1 line and an import) |
 | `app/src/main/kotlin/org/fossify/phone/helpers/CallContactHelper.kt` | with no contact match, show the carrier caller name instead of the number (1 line and an import) |
-| `app/src/main/kotlin/org/fossify/phone/services/CallService.kt` | `onCallAdded` asks the blocker whether it dealt with the call and returns if so; an `onSilenceRinger` override stops our ringer (import plus 6 lines) |
+| `app/src/main/kotlin/org/fossify/phone/services/CallService.kt` | `onCallAdded` asks the blocker whether it dealt with the call and returns if so (import plus 1 line) |
 
 Design and plan: `docs/superpowers/specs/2026-09-29-elbowsup-blocker-integration-design.md`.
-
-Not an upstream edit, but easy to miss: `app/src/debug/AndroidManifest.xml` adds `IN_CALL_SERVICE_RINGING` to `CallService` in debug builds, so the debug app rings its own calls (`telecom/Ringer.kt`) while release builds leave ringing to Telecom. If upstream ever adds ringing to `CallService`, debug builds will double-ring after a merge.

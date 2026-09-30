@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <!-- Debug builds own ringing until the Phase 6 ringing matrix passes; release builds leave it to Telecom. -->
-        <service android:name="org.fossify.phone.services.CallService">
-            <meta-data
-                android:name="android.telecom.IN_CALL_SERVICE_RINGING"
-                android:value="true" />
-        </service>
 
         <!-- Debug builds only. DUMP is held by the adb shell but not by ordinary apps. -->
         <receiver

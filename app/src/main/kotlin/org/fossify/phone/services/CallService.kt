@@ -67,11 +67,6 @@ class CallService : InCallService() {
         }
     }
 
-    override fun onSilenceRinger() { // ELBOWSUP
-        super.onSilenceRinger()
-        BlockerCalls.onSilenceRinger()
-    }
-
     override fun onCallRemoved(call: Call) {
         super.onCallRemoved(call)
         call.unregisterCallback(callListener)
