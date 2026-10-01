@@ -2,6 +2,7 @@ package com.keejii.elbowsup.ui
 
 import android.app.role.RoleManager
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.keejii.elbowsup.core.shouldCompleteSetup
 import com.keejii.elbowsup.telecom.dialerRoleHeld
 import org.fossify.commons.dialogs.RadioGroupDialog
 import org.fossify.commons.extensions.beVisibleIf
+import org.fossify.commons.extensions.getContrastColor
 import org.fossify.commons.extensions.getProperPrimaryColor
 import org.fossify.commons.extensions.hasPermission
 import org.fossify.commons.extensions.updateTextColors
@@ -119,6 +121,25 @@ class BlockerActivity : SimpleActivity() {
             binding.elbowsupBlockedLabel,
         )
             .forEach { it.setTextColor(getProperPrimaryColor()) }
+        tintButtons()
+    }
+
+    /** Fossify colors views from the user's accent in code, so the Material buttons are tinted the same way. */
+    private fun tintButtons() = binding.apply {
+        val accent = getProperPrimaryColor()
+        arrayOf(
+            elbowsupPauseButton,
+            elbowsupSetupScreeningButton,
+            elbowsupSetupContactsButton,
+            elbowsupSetupDialerButton,
+        ).forEach {
+            it.backgroundTintList = ColorStateList.valueOf(accent)
+            it.setTextColor(accent.getContrastColor())
+        }
+        arrayOf(elbowsupAddRule, elbowsupAddSchedule, elbowsupClearBlocked).forEach {
+            it.setTextColor(accent)
+            it.strokeColor = ColorStateList.valueOf(accent)
+        }
     }
 
     private fun renderSetup(screening: Boolean, contacts: Boolean) = binding.apply {

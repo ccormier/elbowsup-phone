@@ -31,13 +31,17 @@
             android:id="@+id/elbowsup_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_margin">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/activity_margin">
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:paddingBottom="@dimen/medium_margin">
 
                 <org.fossify.commons.views.MyTextView
                     android:id="@+id/elbowsup_status_headline"
@@ -54,8 +58,9 @@
                     android:alpha="0.8"
                     android:textSize="@dimen/bigger_text_size" />
 
-                <org.fossify.commons.views.MyButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/elbowsup_pause_button"
+                    style="@style/Widget.Material3.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_margin" />
@@ -90,10 +95,12 @@
                         android:text="@string/elbowsup_setup_screening"
                         android:textSize="@dimen/normal_text_size" />
 
-                    <org.fossify.commons.views.MyButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/elbowsup_setup_screening_button"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_margin"
                         android:text="@string/elbowsup_setup_screening_button" />
                 </LinearLayout>
 
@@ -112,10 +119,12 @@
                         android:text="@string/elbowsup_setup_contacts"
                         android:textSize="@dimen/normal_text_size" />
 
-                    <org.fossify.commons.views.MyButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/elbowsup_setup_contacts_button"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_margin"
                         android:text="@string/elbowsup_setup_contacts_button" />
                 </LinearLayout>
 
@@ -134,10 +143,12 @@
                         android:text="@string/elbowsup_setup_dialer"
                         android:textSize="@dimen/normal_text_size" />
 
-                    <org.fossify.commons.views.MyButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/elbowsup_setup_dialer_button"
+                        style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_margin"
                         android:text="@string/elbowsup_setup_dialer_button" />
                 </LinearLayout>
             </LinearLayout>
@@ -166,11 +177,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <org.fossify.commons.views.MyButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/elbowsup_add_rule"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:text="@string/elbowsup_add_rule" />
 
             <TextView
@@ -197,11 +211,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <org.fossify.commons.views.MyButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/elbowsup_add_schedule"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:text="@string/elbowsup_add_schedule" />
 
             <TextView
@@ -209,7 +226,6 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
                 android:text="@string/elbowsup_blocked_label" />
 
             <org.fossify.commons.views.MyTextView
@@ -240,12 +256,14 @@
                 android:text="@string/elbowsup_blocked_empty"
                 android:textSize="@dimen/normal_text_size" />
 
-            <org.fossify.commons.views.MyButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/elbowsup_clear_blocked"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
                 android:text="@string/elbowsup_blocked_clear" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
