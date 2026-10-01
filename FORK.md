@@ -69,24 +69,21 @@ and our earlier imports were the only hook lines that conflicted. Keep it that w
 
 ### Before a release
 
-Build `assembleFossRelease` and check three things, which have each caught a real problem: the
-storage classes in `storage/` are `@Keep` (R8 otherwise renames the saved field names), the merged
-manifest has no `DebugSeedReceiver` and no `IN_CALL_SERVICE_RINGING`, and there is no `INTERNET`.
+The project has three flavors (`core`, `foss`, `gplay`), each with a debug and a release build.
+`./gradlew assembleDebug assembleRelease` builds all six; everything of ours lives in `main`, and the
+only debug-only piece is the `DebugSeedReceiver` in `src/debug`, which must not appear in a release.
 
-## Upstream touch points
+Check, for every release APK: the storage classes in `storage/` are `@Keep` (R8 otherwise renames the
+saved field names), the merged manifest has `BlockerActivity` and the pause receiver but no
+`DebugSeedReceiver`, no `IN_CALL_SERVICE_RINGING` and no `INTERNET`, and the strings and layouts of the
+blocker screen are present after resource shrinking. Each of these has caught or ruled out a real problem.
 
-Every edit to a file that exists upstream, marked `// ELBOWSUP` in the source. Keep this list
-current; it is what to check first when a merge conflicts.
+R8 inlines our hook targets into their callers, so `BlockerCalls`, `BlockerScreening` and
+`BlockedRecents` show as removed in `mapping.txt` while their code is still in the APK. Do not conclude the
+blocker is missing from a class name; look for strings and calls that only our code has (for example the
+default rule names, or `TelecomManager.silenceRinger`), or better, run the release build on a device.
 
-| File | Change |
-|---|---|
-| `app/build.gradle.kts` | `testImplementation` JUnit |
-| `app/src/main/AndroidManifest.xml` | one block between `<!-- ELBOWSUP begin -->` and `<!-- ELBOWSUP end -->`: the call blocker screen and the pause notification's Resume receiver |
-| `app/src/main/res/menu/menu.xml` | a "Call blocker" overflow item |
-| `app/src/main/kotlin/org/fossify/phone/activities/MainActivity.kt` | opens the call blocker screen from that menu item (1 line and an import) |
-| `app/src/main/kotlin/org/fossify/phone/services/SimpleCallScreeningService.kt` | first statement of `onScreenCall` asks the blocker for a verdict and returns if it answered; otherwise Fossify's screening runs unchanged (1 line, fully qualified, no import) |
-| `app/src/main/kotlin/org/fossify/phone/helpers/CallContactHelper.kt` | with no contact match, show the carrier caller name instead of the number (1 line and an import) |
-| `app/src/main/kotlin/org/fossify/phone/services/CallService.kt` | `onCallAdded` asks the blocker whether it dealt with the call and returns if so (1 line, fully qualified, no import) |
-| `app/src/main/kotlin/org/fossify/phone/adapters/RecentCallsAdapter.kt` | `bind` marks a blocked call in the row's time text (import plus 1 line) |
-
-Design and plan: `docs/superpowers/specs/2026-09-29-elbowsup-blocker-integration-design.md`.
+To run a release build on a device: `zipalign -p 4`, sign it with `apksigner` and the debug keystore (this
+needs `JAVA_HOME`), install it (its app id has no `.debug`, so it sits beside the debug app), grant it the
+contacts permission, give it the phone and call screening roles with `cmd role add-role-holder`, and open
+its Call blocker screen once to finish setup. Put the roles back and uninstall it afterwards.
