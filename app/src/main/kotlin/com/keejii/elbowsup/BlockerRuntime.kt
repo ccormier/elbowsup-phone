@@ -24,7 +24,7 @@ class BlockerRuntime private constructor(context: Context) {
     private val listeners = CopyOnWriteArraySet<() -> Unit>()
 
     @Volatile
-    private var current: BlockerSnapshot = config.load()
+    private var current: BlockerSnapshot = config.loadWithDefaults()
 
     fun snapshot(): BlockerSnapshot = current
 

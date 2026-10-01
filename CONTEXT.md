@@ -24,6 +24,10 @@ _Avoid_: Caller name, CNAM label, contact name
 A caller ID name that is not blank, is allowed to be shown, and is not merely the digits of the caller's own number.
 _Avoid_: Valid name
 
+**Default rules**:
+The two block rules a fresh install starts with, one for each carrier label: "Likely Spam" and "Likely Fraud". They are ordinary rules that can be edited, switched off or deleted, and they are only added the first time, so a deleted one stays deleted.
+_Avoid_: Built-in rules, preset rules
+
 **Matcher**:
 What a rule looks at: an exact number, the start of a number, a hidden number, a caller ID name pattern, or no caller ID name at all.
 _Avoid_: Condition, filter type
