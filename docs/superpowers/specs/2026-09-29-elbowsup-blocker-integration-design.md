@@ -1,7 +1,7 @@
 # Elbows Up — Call Blocker in the Fossify Dialer: Design and Phase Plan
 
 - **Date:** 2026-09-29
-- **Status:** DRAFT — decisions D1–D4 and v1 scope settled (§7, §9); Phase 0 spikes done (`docs/superpowers/notes/2026-09-29-phase0-spike-results.md`); local only (not filed as issues); no product code yet
+- **Status:** phases 0–8 done (Phase 8 device matrix pending its last calls, see below); decisions D1–D4 settled (§9); local only (not filed as issues). Decisions are recorded in `docs/adr/`, terms in `CONTEXT.md`.
 - **Scope:** add a rule-based call blocker to this Fossify Phone fork, so one app is both the default dialer and the call blocker.
 - **Reference only:** the standalone POC at `/Users/chrisc/workspace/spam-elbowsup` (and `docs/superpowers/notes/`). It informs intent and pitfalls (§2). It is **not** a source to port: architecture, storage, UI, and behavior are designed here for this codebase.
 
@@ -127,7 +127,7 @@ Every upstream file we edit, marked `// ELBOWSUP` in the source and listed in `F
 The POC's feature list is not inherited. v1:
 
 - **In:** contacts + emergency always allowed; ordered rules, allow and block; matchers exact number, prefix, no-number, caller ID name wildcard (CNAM), no caller ID name; per-rule schedule Always or a custom window (days, start, end; may cross midnight, the start day owns the spill); actions Reject, hide missed call (default), Reject, show missed call, Silence, Answer and hang up (needs the dialer role); timed pause (15 min / 1 h / until resume) with a resume notification; named schedules that pause blocking during their window (name, days, start, end, enabled); blocked-event log; screening-role setup and status; blocked annotation in Recents.
-- **Deferred:** regex matchers (and their 50 ms time budget), the "no readable contacts → pause" safeguard and country override, folding runs of attempts in Recents, area-code/prefix "chips" from the call log.
+- **Dropped (decided 2026-10-01, not needed):** regex matchers, the "no readable contacts → pause" safeguard and country override, folding runs of attempts in Recents, and area-code/prefix "chips" from the call log.
 
 ## 8. Phases
 
@@ -175,7 +175,11 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 - Device-verified on caiman with its real events and call log: Recents marked the 226-220-1236 group and the earlier blocked 1235 and 1234 groups as blocked and left your starred contact and ordinary missed calls plain; the blocker screen listed recent blocked calls with name, number, time and rule summary; "Allow this number" saved an allow rule that appeared in Rules; "Remove from list" dropped the entry. Not device-verified: the rule summary in the call-details dialog (in Fossify, tapping a Recents row calls the number back, and the dialog is reached from a menu I did not drive) and "Clear list" (unit-tested).
 - Exit: a blocked call shows in Recents and can be allowed from the blocker screen.
 
-**Phase 8 — Hardening and docs:** device matrix, `git merge upstream/main` rehearsal on a scratch branch, `FORK.md` ledger, `CONTEXT.md` glossary, ADRs (two-stage evaluation, letting Telecom ring and why owning it fails under Do Not Disturb, touch-point policy).
+**Phase 8 — Hardening and docs:** release build, upstream merge rehearsal, device matrix gaps, `FORK.md`, `CONTEXT.md`, ADRs.
+- Status 2026-10-01: done except the last device calls. Release build (`assembleFossRelease`, R8 on): found and fixed a real bug, R8 renamed the Gson field names of the storage classes and removed the legacy `emptyNameOnly` field, so saved rules would not survive an update; the three classes are now `@Keep`, verified with `dexdump` on the release APK. Merged release manifest checked: no debug receiver, no ringing flag, no `INTERNET`, not debuggable (the `DUMP` permission there belongs to AndroidX's profile installer).
+- Merge rehearsal: upstream had not moved since the fork point, so the rehearsal replayed our upstream-file edits onto upstream from a year earlier and merged current upstream (218 commits) in. Only fork-setup files conflicted (`gradle.properties`, `libs.versions.toml`, 3 of 57 locale strings), one hunk each; our hook files conflicted only on `import` lines, so the two hooks now use fully qualified names and the rehearsal merged them clean. Resolutions are in `FORK.md`.
+- Found by the matrix: with the screening role revoked the status screen said blocking was off, but the dialer stage kept rejecting by rule. The dialer stage now requires the screening role too (`planDialer`, tested).
+- Docs: `CONTEXT.md` glossary and ADRs 0001 (two stages), 0002 (Telecom rings), 0003 (single-line upstream edits).
 
 ## 9. Decisions and open items
 

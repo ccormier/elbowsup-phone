@@ -1,8 +1,8 @@
 package com.keejii.elbowsup.telecom
 
-import android.content.Context
 import android.os.Build
 import android.telecom.Call
+import android.telecom.CallScreeningService
 import android.telecom.CallScreeningService.CallResponse
 import androidx.annotation.RequiresApi
 import com.keejii.elbowsup.BlockerRuntime
@@ -19,7 +19,7 @@ object BlockerScreening {
      * screening runs and the call is never blocked by accident; a blocked event that was written
      * before a failed response is taken back.
      */
-    fun screen(context: Context, details: Call.Details, respond: (CallResponse) -> Unit): Boolean {
+    fun screen(context: CallScreeningService, details: Call.Details): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return false
         var runtime: BlockerRuntime? = null
         var pendingEventId: Long? = null
@@ -51,7 +51,7 @@ object BlockerScreening {
                 )
                 pendingEventId = loaded.events.append(event)
             }
-            respond(flags.toCallResponse())
+            context.respondToCall(details, flags.toCallResponse())
             true
         } catch (_: Throwable) {
             pendingEventId?.let { id -> runCatching { runtime?.events?.remove(id) } }

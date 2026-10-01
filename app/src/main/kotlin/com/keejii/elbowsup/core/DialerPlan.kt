@@ -22,7 +22,8 @@ data class DialerPlan(val action: DialerAction, val event: PlannedEvent?)
 /**
  * Decides an incoming call in the dialer, where the caller name is known. The whole rule list runs
  * again, so a call that screening already silenced comes out silenced here too; [silentRequested]
- * says screening did that and already recorded it. Ringing is the default for anything unclear.
+ * says screening did that and already recorded it. Without the screening role blocking is off here too,
+ * as the status screen says. Ringing is the default for anything unclear.
  */
 @Suppress("LongParameterList")
 fun planDialer(
@@ -34,11 +35,12 @@ fun planDialer(
     now: ZonedDateTime,
     canAnswerHangup: Boolean,
     silentRequested: Boolean,
+    screeningHeld: Boolean,
     isEmergency: () -> Boolean,
     contact: () -> ContactStatus,
 ): DialerPlan {
     val quiet = DialerPlan(if (silentRequested) DialerAction.NO_RING else DialerAction.RING, null)
-    if (!blockingActive(snapshot.setupComplete, sdkInt) || snapshot.rules.isEmpty()) return quiet
+    if (!screeningHeld || !blockingActive(snapshot.setupComplete, sdkInt) || snapshot.rules.isEmpty()) return quiet
     val number = normalizeNumber(rawNumber, region)
     val env = buildEnv(Stage.LATE, snapshot, rawNumber != null && isEmergency(), contact(), canAnswerHangup, now)
     val decision = evaluate(snapshot.rules, CallInfo(number, name), env)

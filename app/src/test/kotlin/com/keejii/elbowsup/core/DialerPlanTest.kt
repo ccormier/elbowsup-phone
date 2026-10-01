@@ -18,6 +18,7 @@ class DialerPlanTest {
         name: String? = null,
         raw: String? = "+14155551234",
         silentRequested: Boolean = false,
+        screeningHeld: Boolean = true,
         setup: Boolean = true,
         sdk: Int = 36,
         emergency: Boolean = false,
@@ -32,6 +33,7 @@ class DialerPlanTest {
         now,
         canAnswerHangup,
         silentRequested,
+        screeningHeld,
         isEmergency = { emergency },
         contact = { contact },
     )
@@ -50,6 +52,16 @@ class DialerPlanTest {
     }
 
     @Test
+    fun withoutTheScreeningRoleBlockingIsOffAtTheDialerToo() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1415"), block(MatcherType.NAME_WILDCARD, "Likely*"))
+        val byNumber = plan(rules, screeningHeld = false)
+        assertEquals(DialerAction.RING, byNumber.action)
+        assertNull(byNumber.event)
+        assertEquals(DialerAction.RING, plan(rules, name = "Likely Spam", screeningHeld = false).action)
+        assertEquals(DialerAction.NO_RING, plan(rules, screeningHeld = false, silentRequested = true).action)
+    }
+
+    @Test
     fun noRulesLooksNothingUp() {
         val result = planDialer(
             BlockerSnapshot(emptyList(), emptyList(), TimedPause.NONE, true),
@@ -60,6 +72,7 @@ class DialerPlanTest {
             now,
             true,
             false,
+            true,
             isEmergency = { error("no emergency lookup needed") },
             contact = { error("no contact lookup needed") },
         )

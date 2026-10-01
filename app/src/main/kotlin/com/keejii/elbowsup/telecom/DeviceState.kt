@@ -1,5 +1,6 @@
 package com.keejii.elbowsup.telecom
 
+import android.app.role.RoleManager
 import android.content.Context
 import android.os.Build
 import android.telephony.TelephonyManager
@@ -34,6 +35,10 @@ fun Context.currentRegion(): String? {
 }
 
 fun Context.dialerRoleHeld(): Boolean = isDefaultDialer()
+
+@RequiresApi(Build.VERSION_CODES.Q)
+fun Context.screeningRoleHeld(): Boolean =
+    getSystemService(RoleManager::class.java)?.isRoleHeld(RoleManager.ROLE_CALL_SCREENING) == true
 
 /** When it cannot be checked the number counts as an emergency, so nothing is blocked. */
 @RequiresApi(Build.VERSION_CODES.Q)

@@ -84,6 +84,7 @@ object BlockerCalls {
                 now = ZonedDateTime.now(),
                 canAnswerHangup = canAnswerHangup(Build.VERSION.SDK_INT, dialerHeld = true),
                 silentRequested = silentRequested,
+                screeningHeld = service.screeningRoleHeld(),
                 isEmergency = { service.isEmergencyNumberOrUnknown(rawNumber) },
                 contact = { service.contactStatus(rawNumber) },
             )
