@@ -149,6 +149,12 @@ class RuleEngineTest {
         assertEquals(Outcome.ALLOW, outcome(rules, name = null))
     }
 
+    @Test(timeout = 2000)
+    fun aPatternWithManyStarsCannotStallTheCall() {
+        val rules = listOf(block(MatcherType.NAME_WILDCARD, "*a".repeat(14) + "*b"))
+        assertEquals(Outcome.ALLOW, outcome(rules, name = "a".repeat(30)))
+    }
+
     @Test
     fun wildcardMetacharactersAreLiteralExceptStarAndQuestion() {
         val rules = listOf(block(MatcherType.NAME_WILDCARD, "a.c(1)?"))

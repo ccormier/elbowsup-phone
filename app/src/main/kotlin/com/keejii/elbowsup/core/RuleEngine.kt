@@ -71,19 +71,37 @@ private fun nameWildcardVerdict(rule: Rule, call: CallInfo, stage: Stage): Verdi
 
 private fun verdict(matches: Boolean) = if (matches) Verdict.MATCH else Verdict.NO_MATCH
 
-/** `*` is any run of characters, `?` is one character, case-insensitive; everything else is literal. */
+/**
+ * `*` is any run of characters, `?` is one character, case-insensitive; everything else is literal.
+ * Matched by walking both strings once and backing up to the latest `*`, so the time is bounded by the
+ * two lengths however many stars the pattern has.
+ */
 private fun wildcardMatches(pattern: String?, name: String): Boolean {
     if (pattern == null) return false
-    val regex = buildString {
-        for (ch in pattern) {
-            when (ch) {
-                '*' -> append(".*")
-                '?' -> append('.')
-                else -> append(Regex.escape(ch.toString()))
+    var p = 0
+    var n = 0
+    var star = -1
+    var resume = 0
+    while (n < name.length) {
+        val ch = pattern.getOrNull(p)
+        when {
+            ch == '*' -> {
+                star = p++
+                resume = n
             }
+            ch != null && (ch == '?' || ch.equals(name[n], ignoreCase = true)) -> {
+                p++
+                n++
+            }
+            star >= 0 -> {
+                p = star + 1
+                n = ++resume
+            }
+            else -> return false
         }
     }
-    return Regex(regex, setOf(RegexOption.IGNORE_CASE, RegexOption.DOT_MATCHES_ALL)).matches(name)
+    while (pattern.getOrNull(p) == '*') p++
+    return p == pattern.length
 }
 
 private fun decide(rule: Rule, env: Env): Decision {

@@ -15,8 +15,9 @@ import java.time.ZonedDateTime
 /** The blocker's half of call screening. Fossify's own screening runs whenever this has no verdict. */
 object BlockerScreening {
     /**
-     * Returns true when the call was answered here. Any failure returns false so that Fossify's
-     * screening runs and the call is never blocked by accident; a blocked event that was written
+     * Returns true when the call was answered here. Any failure, errors included, returns false so that
+     * Fossify's screening runs and the call is never blocked by accident; this runs in the phone app's own
+     * process, where letting an error escape would crash the dialer. A blocked event that was written
      * before a failed response is taken back.
      */
     fun screen(context: CallScreeningService, details: Call.Details): Boolean {

@@ -18,7 +18,8 @@ private const val EVENTS_FILE = "elbowsup/blocked_events.jsonl"
 class BlockerRuntime private constructor(context: Context) {
     private val config = BlockerConfig(context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE))
 
-    val events = EventLog(File(context.filesDir, EVENTS_FILE))
+    // Kept out of Android's cloud backup: it lists who called, and it is not worth restoring on a new phone.
+    val events = EventLog(File(context.noBackupFilesDir, EVENTS_FILE))
 
     private val listeners = CopyOnWriteArraySet<() -> Unit>()
 

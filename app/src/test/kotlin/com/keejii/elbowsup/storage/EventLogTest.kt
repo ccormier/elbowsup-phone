@@ -19,6 +19,22 @@ class EventLogTest {
     private fun log(cap: Int = 500, name: String = "events.jsonl") = EventLog(File(folder.root, name), cap)
 
     @Test
+    fun aListThatWasReadBeforeIsNeverStaleAfterAChange() {
+        val log = log(cap = 2)
+        val first = log.append(event(1_000))
+        assertEquals(listOf(first), log.all().map { it.id })
+
+        val second = log.append(event(2_000))
+        assertEquals(listOf(second, first), log.all().map { it.id })
+
+        assertTrue(log.remove(first))
+        assertEquals(listOf(second), log.all().map { it.id })
+
+        log.clear()
+        assertTrue(log.all().isEmpty())
+    }
+
+    @Test
     fun clearEmptiesTheLogAndTheFileButKeepsIdsIncreasing() {
         val file = File(folder.root, "clear.jsonl")
         val log = EventLog(file)

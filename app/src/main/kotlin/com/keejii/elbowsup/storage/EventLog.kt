@@ -34,6 +34,7 @@ private data class EventDto(
 class EventLog(private val file: File, private val cap: Int = DEFAULT_CAP) {
     private val gson = Gson()
     private val events = ArrayList<BlockedEvent>()
+    private var newestFirst: List<BlockedEvent>? = null
     private var nextId = 1L
 
     init {
@@ -45,6 +46,7 @@ class EventLog(private val file: File, private val cap: Int = DEFAULT_CAP) {
     fun append(event: BlockedEvent): Long {
         val stored = event.copy(id = nextId++)
         events += stored
+        newestFirst = null
         if (events.size > cap + PRUNE_SLACK) {
             trim()
             rewrite()
@@ -57,6 +59,7 @@ class EventLog(private val file: File, private val cap: Int = DEFAULT_CAP) {
     @Synchronized
     fun remove(id: Long): Boolean {
         if (!events.removeAll { it.id == id }) return false
+        newestFirst = null
         rewrite()
         return true
     }
@@ -65,12 +68,13 @@ class EventLog(private val file: File, private val cap: Int = DEFAULT_CAP) {
     fun clear() {
         if (events.isEmpty()) return
         events.clear()
+        newestFirst = null
         rewrite()
     }
 
-    /** Newest first. */
+    /** Newest first. The same list is returned until the log changes, because every Recents row asks for it. */
     @Synchronized
-    fun all(): List<BlockedEvent> = events.asReversed().toList()
+    fun all(): List<BlockedEvent> = newestFirst ?: events.asReversed().toList().also { newestFirst = it }
 
     private fun load() {
         val lines = runCatching { if (file.exists()) file.readLines() else emptyList() }.getOrDefault(emptyList())
