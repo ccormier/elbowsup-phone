@@ -55,7 +55,7 @@ When anything is uncertain or goes wrong, the call rings. A call is only blocked
 _Avoid_: Fail safe
 
 **Setup**:
-The one-time grant of everything blocking needs: being the call screening app, being the phone app, and reading contacts. Blocking stays off until setup has completed once.
+The one-time grant of everything blocking needs: being the call screening app, being the phone app, and reading contacts. Blocking stays off until setup has completed, and again whenever the call screening app role is lost.
 
 ## Time
 
