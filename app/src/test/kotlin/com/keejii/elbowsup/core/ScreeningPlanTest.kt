@@ -34,6 +34,7 @@ class ScreeningPlanTest {
         emergency: Boolean = false,
         contact: ContactStatus = ContactStatus.NOT_CONTACT,
         canAnswerHangup: Boolean = false,
+        screeningHeld: Boolean = true,
         pause: TimedPause = TimedPause.NONE,
         region: String? = "US",
     ) = planScreening(
@@ -43,6 +44,7 @@ class ScreeningPlanTest {
         sdk,
         now,
         canAnswerHangup,
+        screeningHeld,
         isEmergency = { emergency },
         contact = { contact },
     )
@@ -55,6 +57,14 @@ class ScreeningPlanTest {
     }
 
     @Test
+    fun withoutTheScreeningRoleTheCallPassesThrough() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1415"))
+        val result = plan(rules, screeningHeld = false)
+        assertNull(result.flags)
+        assertNull(result.event)
+    }
+
+    @Test
     fun noRulesPassesThroughWithoutLookingAnythingUp() {
         val result = planScreening(
             snapshot(emptyList()),
@@ -63,6 +73,7 @@ class ScreeningPlanTest {
             36,
             now,
             false,
+            true,
             isEmergency = { error("no emergency lookup needed") },
             contact = { error("no contact lookup needed") },
         )

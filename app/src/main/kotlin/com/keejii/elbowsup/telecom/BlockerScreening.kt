@@ -35,6 +35,7 @@ object BlockerScreening {
                 sdkInt = Build.VERSION.SDK_INT,
                 now = now,
                 canAnswerHangup = canAnswerHangup(Build.VERSION.SDK_INT, context.dialerRoleHeld()),
+                screeningHeld = context.screeningRoleHeld(),
                 isEmergency = { context.isEmergencyNumberOrUnknown(rawNumber) },
                 contact = { context.contactStatus(rawNumber) },
             )

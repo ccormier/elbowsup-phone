@@ -23,6 +23,8 @@ data class ScreeningPlan(val flags: ScreeningFlags?, val event: PlannedEvent?) {
 /**
  * Decides an incoming call at screening time, when the caller name is not known yet. Lookups are
  * lambdas so they only run once there is something to decide, and a call with no rules costs nothing.
+ * Telecom also binds this service as the phone app's when nobody holds the screening role, and the
+ * status screen says blocking is off then, so without the role there is no verdict.
  */
 @Suppress("LongParameterList")
 fun planScreening(
@@ -32,10 +34,13 @@ fun planScreening(
     sdkInt: Int,
     now: ZonedDateTime,
     canAnswerHangup: Boolean,
+    screeningHeld: Boolean,
     isEmergency: () -> Boolean,
     contact: () -> ContactStatus,
 ): ScreeningPlan {
-    if (!blockingActive(snapshot.setupComplete, sdkInt) || snapshot.rules.isEmpty()) return ScreeningPlan.PASS_THROUGH
+    if (!screeningHeld || !blockingActive(snapshot.setupComplete, sdkInt) || snapshot.rules.isEmpty()) {
+        return ScreeningPlan.PASS_THROUGH
+    }
     val number = normalizeNumber(rawNumber, region)
     val env = buildEnv(Stage.EARLY, snapshot, rawNumber != null && isEmergency(), contact(), canAnswerHangup, now)
     val decision = evaluate(snapshot.rules, CallInfo(number, name = null), env)

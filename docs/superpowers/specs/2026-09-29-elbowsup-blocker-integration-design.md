@@ -1,7 +1,7 @@
 # Elbows Up — Call Blocker in the Fossify Dialer: Design and Phase Plan
 
 - **Date:** 2026-09-29
-- **Status:** phases 0–8 done (Phase 8 device matrix pending its last calls, see below); decisions D1–D4 settled (§9); local only (not filed as issues). Decisions are recorded in `docs/adr/`, terms in `CONTEXT.md`.
+- **Status:** phases 0–8 done (Phase 8 device matrix done); decisions D1–D4 settled (§9); local only (not filed as issues). Decisions are recorded in `docs/adr/`, terms in `CONTEXT.md`.
 - **Scope:** add a rule-based call blocker to this Fossify Phone fork, so one app is both the default dialer and the call blocker.
 - **Reference only:** the standalone POC at `/Users/chrisc/workspace/spam-elbowsup` (and `docs/superpowers/notes/`). It informs intent and pitfalls (§2). It is **not** a source to port: architecture, storage, UI, and behavior are designed here for this codebase.
 
@@ -90,7 +90,7 @@ Facts from the SDK's API data: `isEmergencyNumber`, `setSilenceCall`, `RoleManag
 
 ### F. Setup and roles
 
-Fossify already prompts for default dialer. The blocker adds the call-screening role request and a status row in `BlockerActivity`. Blocking stays off until roles are granted; the app says what is missing.
+Fossify already prompts for default dialer. The blocker adds the call-screening role request and a status row in `BlockerActivity`. Blocking stays off at both stages until the screening role is held (ADR 0004), and the app says what is missing.
 
 ### G. Caller name (CNAM) on the call screen
 
@@ -178,8 +178,8 @@ Each phase ends with a green `./gradlew assembleFossDebug testFossDebugUnitTest`
 **Phase 8 — Hardening and docs:** release build, upstream merge rehearsal, device matrix gaps, `FORK.md`, `CONTEXT.md`, ADRs.
 - Status 2026-10-01: done except the last device calls. Release build (`assembleFossRelease`, R8 on): found and fixed a real bug, R8 renamed the Gson field names of the storage classes and removed the legacy `emptyNameOnly` field, so saved rules would not survive an update; the three classes are now `@Keep`, verified with `dexdump` on the release APK. Merged release manifest checked: no debug receiver, no ringing flag, no `INTERNET`, not debuggable (the `DUMP` permission there belongs to AndroidX's profile installer).
 - Merge rehearsal: upstream had not moved since the fork point, so the rehearsal replayed our upstream-file edits onto upstream from a year earlier and merged current upstream (218 commits) in. Only fork-setup files conflicted (`gradle.properties`, `libs.versions.toml`, 3 of 57 locale strings), one hunk each; our hook files conflicted only on `import` lines, so the two hooks now use fully qualified names and the rehearsal merged them clean. Resolutions are in `FORK.md`.
-- Found by the matrix: with the screening role revoked the status screen said blocking was off, but the dialer stage kept rejecting by rule. The dialer stage now requires the screening role too (`planDialer`, tested).
-- Docs: `CONTEXT.md` glossary and ADRs 0001 (two stages), 0002 (Telecom rings), 0003 (single-line upstream edits).
+- Found by the matrix: with the screening role revoked, a number rule still blocked, because Telecom binds the screening app OR, failing that, the phone app (never both), and with nobody holding the role it fell back to ours. Holding the role is what guarantees our early stage runs when another caller-ID app might be chosen, so both stages now require it and the status screen is accurate (`planScreening` and `planDialer`, tested; device-verified: role held blocks, nobody holding rings, Google's Phone app holding rings and our stage is not bound). See ADR 0004.
+- Docs: `CONTEXT.md` glossary and ADRs 0001 (two stages), 0002 (Telecom rings), 0003 (single-line upstream edits), 0004 (blocking requires the screening role).
 
 ## 9. Decisions and open items
 
