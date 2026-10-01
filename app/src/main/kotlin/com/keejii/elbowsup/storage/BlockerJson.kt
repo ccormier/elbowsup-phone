@@ -1,5 +1,6 @@
 package com.keejii.elbowsup.storage
 
+import androidx.annotation.Keep
 import com.google.gson.Gson
 import com.keejii.elbowsup.core.BlockAction
 import com.keejii.elbowsup.core.MatcherType
@@ -9,6 +10,8 @@ import com.keejii.elbowsup.core.RuleKind
 import com.keejii.elbowsup.core.TimeWindow
 import java.time.DayOfWeek
 
+/** Kept as written: Gson reads these field names, and R8 must neither rename nor remove them. */
+@Keep
 private data class RuleDto(
     val id: Long = 0,
     val enabled: Boolean = true,
@@ -23,6 +26,7 @@ private data class RuleDto(
     val action: String? = null,
 )
 
+@Keep
 private data class ScheduleDto(
     val id: Long = 0,
     val name: String = "",

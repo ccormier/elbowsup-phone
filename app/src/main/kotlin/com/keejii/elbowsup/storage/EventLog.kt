@@ -1,5 +1,6 @@
 package com.keejii.elbowsup.storage
 
+import androidx.annotation.Keep
 import com.google.gson.Gson
 import java.io.File
 import java.io.IOException
@@ -15,6 +16,7 @@ data class BlockedEvent(
     val ruleSummary: String,
 )
 
+@Keep
 private data class EventDto(
     val id: Long = 0,
     val time: Long = 0,
