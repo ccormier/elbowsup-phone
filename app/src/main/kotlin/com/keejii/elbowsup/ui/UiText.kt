@@ -65,6 +65,7 @@ fun Context.statusHeadline(status: BlockerStatus): String = getString(
         BlockerStatus.CONTACTS_PERMISSION_MISSING -> R.string.elbowsup_status_needs_setup
         BlockerStatus.PAUSED_TIMED,
         BlockerStatus.PAUSED_UNTIL_RESUME,
+        BlockerStatus.PAUSED_NEXT_CALL,
         BlockerStatus.PAUSED_SCHEDULE -> R.string.elbowsup_status_paused
     },
 )
@@ -77,5 +78,6 @@ fun Context.statusDetail(status: BlockerStatus, untilLabel: String): String = wh
     BlockerStatus.CONTACTS_PERMISSION_MISSING -> getString(R.string.elbowsup_detail_contacts_missing)
     BlockerStatus.PAUSED_TIMED -> getString(R.string.elbowsup_detail_paused_until, untilLabel)
     BlockerStatus.PAUSED_UNTIL_RESUME -> getString(R.string.elbowsup_detail_paused_until_resume)
+    BlockerStatus.PAUSED_NEXT_CALL -> getString(R.string.elbowsup_detail_paused_next_call)
     BlockerStatus.PAUSED_SCHEDULE -> getString(R.string.elbowsup_detail_paused_schedule)
 }

@@ -103,9 +103,15 @@ class BlockerActivity : SimpleActivity() {
         binding.apply {
             elbowsupStatusHeadline.text = statusHeadline(status)
             elbowsupStatusDetail.text = statusDetail(status, until)
-            val manuallyPaused = pause == PauseState.TIMED || pause == PauseState.UNTIL_RESUME
+            val manuallyPaused = pause == PauseState.TIMED ||
+                pause == PauseState.UNTIL_RESUME ||
+                pause == PauseState.NEXT_CALL
             elbowsupPauseButton.setText(if (manuallyPaused) R.string.elbowsup_resume else R.string.elbowsup_pause)
             elbowsupPauseButton.setOnClickListener { if (manuallyPaused) resume() else choosePause() }
+            elbowsupPauseNextCallButton.beVisibleIf(!manuallyPaused)
+            elbowsupPauseNextCallButton.setOnClickListener {
+                runtime.update { it.copy(timedPause = TimedPause.NEXT_CALL) }
+            }
         }
         renderSetup(screening, contacts)
         rules.render(snapshot.rules)
@@ -129,6 +135,7 @@ class BlockerActivity : SimpleActivity() {
         val accent = getProperPrimaryColor()
         arrayOf(
             elbowsupPauseButton,
+            elbowsupPauseNextCallButton,
             elbowsupSetupScreeningButton,
             elbowsupSetupContactsButton,
             elbowsupSetupDialerButton,

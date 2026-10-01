@@ -24,6 +24,7 @@ class DialerPlanTest {
         emergency: Boolean = false,
         contact: ContactStatus = ContactStatus.NOT_CONTACT,
         canAnswerHangup: Boolean = true,
+        passed: Boolean = false,
     ) = planDialer(
         BlockerSnapshot(rules, emptyList(), TimedPause.NONE, setup),
         raw,
@@ -34,6 +35,7 @@ class DialerPlanTest {
         canAnswerHangup,
         silentRequested,
         screeningHeld,
+        passed,
         isEmergency = { emergency },
         contact = { contact },
     )
@@ -62,6 +64,16 @@ class DialerPlanTest {
     }
 
     @Test
+    fun aCallThatUsedUpTheNextCallPauseIsNotBlockedAtTheLateStageEither() {
+        val rules = listOf(block(MatcherType.NAME_WILDCARD, "Likely*"), block(MatcherType.PREFIX, "+1415"))
+        val result = plan(rules, name = "Likely Spam", passed = true)
+        assertEquals(DialerAction.RING, result.action)
+        assertNull(result.event)
+        val silenced = plan(rules, name = "Likely Spam", passed = true, silentRequested = true)
+        assertEquals(DialerAction.NO_RING, silenced.action)
+    }
+
+    @Test
     fun noRulesLooksNothingUp() {
         val result = planDialer(
             BlockerSnapshot(emptyList(), emptyList(), TimedPause.NONE, true),
@@ -73,6 +85,7 @@ class DialerPlanTest {
             true,
             false,
             true,
+            false,
             isEmergency = { error("no emergency lookup needed") },
             contact = { error("no contact lookup needed") },
         )

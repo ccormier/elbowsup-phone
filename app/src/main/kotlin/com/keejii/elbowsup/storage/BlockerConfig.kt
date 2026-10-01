@@ -12,6 +12,7 @@ private const val KEY_RULES = "rules"
 private const val KEY_SCHEDULES = "schedules"
 private const val KEY_TIMED_UNTIL = "timed_until"
 private const val KEY_UNTIL_RESUME = "until_resume"
+private const val KEY_UNTIL_NEXT_CALL = "until_next_call"
 private const val KEY_SETUP_COMPLETE = "setup_complete"
 private const val KEY_LAST_ID = "last_id"
 private const val KEY_DEFAULTS_OFFERED = "defaults_offered"
@@ -24,6 +25,7 @@ class BlockerConfig(private val prefs: SharedPreferences) {
         timedPause = TimedPause(
             untilEpochMillis = if (prefs.contains(KEY_TIMED_UNTIL)) prefs.getLong(KEY_TIMED_UNTIL, 0) else null,
             untilResume = prefs.getBoolean(KEY_UNTIL_RESUME, false),
+            untilNextCall = prefs.getBoolean(KEY_UNTIL_NEXT_CALL, false),
         ),
         setupComplete = prefs.getBoolean(KEY_SETUP_COMPLETE, false),
     )
@@ -54,6 +56,7 @@ class BlockerConfig(private val prefs: SharedPreferences) {
                 val until = new.timedPause.untilEpochMillis
                 if (until == null) remove(KEY_TIMED_UNTIL) else putLong(KEY_TIMED_UNTIL, until)
                 putBoolean(KEY_UNTIL_RESUME, new.timedPause.untilResume)
+                putBoolean(KEY_UNTIL_NEXT_CALL, new.timedPause.untilNextCall)
             }
             if (new.setupComplete != old.setupComplete) putBoolean(KEY_SETUP_COMPLETE, new.setupComplete)
         }

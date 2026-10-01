@@ -16,6 +16,7 @@ import com.keejii.elbowsup.core.RecordStep
 import com.keejii.elbowsup.core.RecordedBlock
 import com.keejii.elbowsup.core.canAnswerHangup
 import com.keejii.elbowsup.core.PlannedEvent
+import com.keejii.elbowsup.core.normalizeNumber
 import com.keejii.elbowsup.core.planDialer
 import com.keejii.elbowsup.core.recordStep
 import com.keejii.elbowsup.storage.BlockedEvent
@@ -94,16 +95,19 @@ object BlockerCalls {
         private fun plan(silentRequested: Boolean): DialerPlan {
             val runtime = BlockerRuntime.get(service)
             val rawNumber = call.details.handle?.schemeSpecificPart
+            val region = service.currentRegion()
+            val now = ZonedDateTime.now()
             return planDialer(
                 snapshot = runtime.snapshot(),
                 rawNumber = rawNumber,
                 name = call.carrierName(),
-                region = service.currentRegion(),
+                region = region,
                 sdkInt = Build.VERSION.SDK_INT,
-                now = ZonedDateTime.now(),
+                now = now,
                 canAnswerHangup = canAnswerHangup(Build.VERSION.SDK_INT, dialerHeld = true),
                 silentRequested = silentRequested,
                 screeningHeld = service.screeningRoleHeld(),
+                passed = runtime.isPassedCall(normalizeNumber(rawNumber, region), now.toInstant().toEpochMilli()),
                 isEmergency = { service.isEmergencyNumberOrUnknown(rawNumber) },
                 contact = { service.contactStatus(rawNumber) },
             )

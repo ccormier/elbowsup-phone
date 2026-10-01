@@ -28,6 +28,18 @@ class PauseTest {
     ) = pauseState(pause, schedules, now, day, minute)
 
     @Test
+    fun untilTheNextCallIsItsOwnKindOfPause() {
+        assertEquals(PauseState.NEXT_CALL, paused(TimedPause.NEXT_CALL))
+        assertEquals(PauseState.NEXT_CALL, paused(TimedPause.NEXT_CALL, now = 5_000_000L))
+    }
+
+    @Test
+    fun untilTheNextCallDoesNotDependOnTheClockOrASchedule() {
+        val inWork = listOf(schedule())
+        assertEquals(PauseState.NEXT_CALL, paused(TimedPause.NEXT_CALL, schedules = inWork))
+    }
+
+    @Test
     fun nothingIsPausedByDefault() {
         assertEquals(PauseState.NONE, paused())
     }

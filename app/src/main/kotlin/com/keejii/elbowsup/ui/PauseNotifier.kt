@@ -28,7 +28,7 @@ object PauseNotifier {
         val pause = BlockerRuntime.get(context).snapshot().timedPause
         val untilMillis = pause.untilEpochMillis
         val timedActive = untilMillis != null && nowMillis < untilMillis
-        if (!pause.untilResume && !timedActive) {
+        if (!pause.untilResume && !pause.untilNextCall && !timedActive) {
             manager.cancel(NOTIFICATION_ID)
             return
         }
@@ -37,7 +37,9 @@ object PauseNotifier {
         manager.createNotificationChannel(
             NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_LOW),
         )
-        val text = if (pause.untilResume || untilMillis == null) {
+        val text = if (pause.untilNextCall) {
+            context.getString(R.string.elbowsup_pause_notification_next_call)
+        } else if (pause.untilResume || untilMillis == null) {
             context.getString(R.string.elbowsup_pause_notification_until_resume)
         } else {
             val time = DateFormat.getTimeFormat(context).format(Date(untilMillis))
@@ -62,7 +64,9 @@ object PauseNotifier {
             .setContentIntent(open)
             .setOngoing(true)
             .addAction(Notification.Action.Builder(null, context.getString(R.string.elbowsup_resume), resume).build())
-        if (!pause.untilResume && untilMillis != null) builder.setTimeoutAfter(untilMillis - nowMillis)
+        if (!pause.untilResume && !pause.untilNextCall && untilMillis != null) {
+            builder.setTimeoutAfter(untilMillis - nowMillis)
+        }
         manager.notify(NOTIFICATION_ID, builder.build())
     }
 

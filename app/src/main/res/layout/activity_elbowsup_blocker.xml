@@ -58,12 +58,38 @@
                     android:alpha="0.8"
                     android:textSize="@dimen/bigger_text_size" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/elbowsup_pause_button"
-                    style="@style/Widget.Material3.Button"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin" />
+                    android:layout_marginTop="@dimen/medium_margin">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/elbowsup_pause_button"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/elbowsup_pause_next_call_button"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/elbowsup_pause_next_call" />
+
+                    <androidx.constraintlayout.helper.widget.Flow
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:constraint_referenced_ids="elbowsup_pause_button,elbowsup_pause_next_call_button"
+                        app:flow_horizontalAlign="start"
+                        app:flow_horizontalBias="0"
+                        app:flow_horizontalGap="@dimen/medium_margin"
+                        app:flow_horizontalStyle="packed"
+                        app:flow_verticalGap="@dimen/medium_margin"
+                        app:flow_wrapMode="chain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
             <LinearLayout

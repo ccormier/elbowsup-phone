@@ -71,6 +71,10 @@ _Avoid_: Schedule (on a rule)
 Blocking switched off for a while: for 15 minutes, for an hour, or until the user resumes.
 _Avoid_: Snooze, disable
 
+**Pause until next call**:
+A pause that ends when the next incoming call arrives. That call is let through, whoever it is from, and blocking is on again straight afterwards.
+_Avoid_: One-time allow, skip next
+
 **Pause schedule**:
 A named, repeating time window during which blocking is paused, such as working hours.
 _Avoid_: Quiet hours, do not disturb (that is Android's own feature)

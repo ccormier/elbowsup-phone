@@ -19,7 +19,7 @@ private const val TAG = "ElbowsUpDebug"
  *   adb shell am broadcast -n <pkg>/com.keejii.elbowsup.debug.DebugSeedReceiver --es op clear
  *   ... --es op add --es matcher PREFIX --es pattern +1226 --es action SILENCE [--es kind ALLOW]
  *   ... --es op setup        (marks setup complete)
- *   ... --es op pause --es mode resume|none
+ *   ... --es op pause --es mode resume|nextcall|none
  *   ... --es op dump         (logs the state and recent blocked events under tag ElbowsUpDebug)
  */
 class DebugSeedReceiver : BroadcastReceiver() {
@@ -31,7 +31,11 @@ class DebugSeedReceiver : BroadcastReceiver() {
             }
             "setup" -> runtime.update { it.copy(setupComplete = true) }
             "pause" -> {
-                val pause = if (intent.getStringExtra("mode") == "resume") TimedPause(null, true) else TimedPause.NONE
+                val pause = when (intent.getStringExtra("mode")) {
+                    "resume" -> TimedPause.UNTIL_RESUME
+                    "nextcall" -> TimedPause.NEXT_CALL
+                    else -> TimedPause.NONE
+                }
                 runtime.update { it.copy(timedPause = pause) }
             }
             "add" -> {

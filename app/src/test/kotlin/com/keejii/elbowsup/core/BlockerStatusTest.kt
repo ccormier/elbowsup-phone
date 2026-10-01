@@ -32,6 +32,7 @@ class BlockerStatusTest {
         assertEquals(BlockerStatus.PAUSED_TIMED, status(pause = PauseState.TIMED))
         assertEquals(BlockerStatus.PAUSED_UNTIL_RESUME, status(pause = PauseState.UNTIL_RESUME))
         assertEquals(BlockerStatus.PAUSED_SCHEDULE, status(pause = PauseState.SCHEDULE))
+        assertEquals(BlockerStatus.PAUSED_NEXT_CALL, status(pause = PauseState.NEXT_CALL))
     }
 
     @Test

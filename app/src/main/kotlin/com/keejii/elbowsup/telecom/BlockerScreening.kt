@@ -10,6 +10,7 @@ import com.keejii.elbowsup.core.ScreeningFlags
 import com.keejii.elbowsup.core.canAnswerHangup
 import com.keejii.elbowsup.core.planScreening
 import com.keejii.elbowsup.storage.BlockedEvent
+import com.keejii.elbowsup.ui.PauseNotifier
 import java.time.ZonedDateTime
 
 /** The blocker's half of call screening. Fossify's own screening runs whenever this has no verdict. */
@@ -40,6 +41,10 @@ object BlockerScreening {
                 isEmergency = { context.isEmergencyNumberOrUnknown(rawNumber) },
                 contact = { context.contactStatus(rawNumber) },
             )
+            plan.nextCallPass?.let {
+                loaded.passNextCall(it.number, now.toInstant().toEpochMilli())
+                PauseNotifier.sync(context)
+            }
             val flags = plan.flags ?: return false
             plan.event?.let {
                 val event = BlockedEvent(

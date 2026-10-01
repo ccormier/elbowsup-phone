@@ -2,6 +2,9 @@ package com.keejii.elbowsup
 
 import android.content.Context
 import com.keejii.elbowsup.core.BlockerSnapshot
+import com.keejii.elbowsup.core.PassedCall
+import com.keejii.elbowsup.core.TimedPause
+import com.keejii.elbowsup.core.coveredByPassedCall
 import com.keejii.elbowsup.storage.BlockerConfig
 import com.keejii.elbowsup.storage.EventLog
 import java.io.File
@@ -27,6 +30,20 @@ class BlockerRuntime private constructor(context: Context) {
     private var current: BlockerSnapshot = config.loadWithDefaults()
 
     fun snapshot(): BlockerSnapshot = current
+
+    @Volatile
+    private var passedCall: PassedCall? = null
+
+    /**
+     * Uses up a pause until the next call: blocking is on again from now, and this call, which screening
+     * and the phone app both look at, is remembered so neither stage blocks it.
+     */
+    fun passNextCall(number: String?, nowMillis: Long) {
+        passedCall = PassedCall(number, nowMillis)
+        update { if (it.timedPause.untilNextCall) it.copy(timedPause = TimedPause.NONE) else it }
+    }
+
+    fun isPassedCall(number: String?, nowMillis: Long): Boolean = coveredByPassedCall(passedCall, number, nowMillis)
 
     /** Applies [change], saves it, and tells listeners if anything actually changed. */
     fun update(change: (BlockerSnapshot) -> BlockerSnapshot) {

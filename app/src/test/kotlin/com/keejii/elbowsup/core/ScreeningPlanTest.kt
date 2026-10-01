@@ -65,6 +65,45 @@ class ScreeningPlanTest {
     }
 
     @Test
+    fun theNextCallUsesUpAPauseUntilTheNextCallAndIsLetThrough() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1415"))
+        val result = plan(rules, pause = TimedPause.NEXT_CALL)
+        assertNull(result.flags)
+        assertNull(result.event)
+        assertEquals(NextCallPass("+14155551234"), result.nextCallPass)
+    }
+
+    @Test
+    fun anyCallUsesItUpEvenOneNoRuleWouldHaveBlocked() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1604"))
+        assertEquals(NextCallPass("+14155551234"), plan(rules, pause = TimedPause.NEXT_CALL).nextCallPass)
+        assertEquals(NextCallPass("+14155551234"), plan(emptyList(), pause = TimedPause.NEXT_CALL).nextCallPass)
+        val contact = plan(rules, contact = ContactStatus.CONTACT, pause = TimedPause.NEXT_CALL)
+        assertEquals(NextCallPass("+14155551234"), contact.nextCallPass)
+    }
+
+    @Test
+    fun aHiddenNumberUsesItUpToo() {
+        assertEquals(NextCallPass(null), plan(emptyList(), raw = null, pause = TimedPause.NEXT_CALL).nextCallPass)
+    }
+
+    @Test
+    fun otherPausesAreNotUsedUp() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1415"))
+        assertNull(plan(rules, pause = TimedPause.UNTIL_RESUME).nextCallPass)
+        assertNull(plan(rules, pause = TimedPause.forMinutes(15, now.toInstant().toEpochMilli())).nextCallPass)
+        assertNull(plan(rules).nextCallPass)
+    }
+
+    @Test
+    fun aPauseIsNotUsedUpWhileBlockingIsOffAnyway() {
+        val rules = listOf(block(MatcherType.PREFIX, "+1415"))
+        assertNull(plan(rules, setup = false, pause = TimedPause.NEXT_CALL).nextCallPass)
+        assertNull(plan(rules, sdk = 28, pause = TimedPause.NEXT_CALL).nextCallPass)
+        assertNull(plan(rules, screeningHeld = false, pause = TimedPause.NEXT_CALL).nextCallPass)
+    }
+
+    @Test
     fun noRulesPassesThroughWithoutLookingAnythingUp() {
         val result = planScreening(
             snapshot(emptyList()),

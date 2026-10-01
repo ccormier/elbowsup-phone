@@ -14,10 +14,12 @@
     <string name="elbowsup_detail_contacts_missing">Blocking is off because Elbows Up cannot read your contacts.</string>
     <string name="elbowsup_detail_paused_until">Paused until %1$s.</string>
     <string name="elbowsup_detail_paused_until_resume">Paused until you resume.</string>
+    <string name="elbowsup_detail_paused_next_call">Paused until the next call comes in, then blocking starts again.</string>
     <string name="elbowsup_detail_paused_schedule">Paused by a schedule.</string>
 
     <!-- Pause -->
-    <string name="elbowsup_pause">Pause</string>
+    <string name="elbowsup_pause">Timed pause</string>
+    <string name="elbowsup_pause_next_call">Pause until next call</string>
     <string name="elbowsup_resume">Resume</string>
     <string name="elbowsup_pause_title">Pause blocking</string>
     <string name="elbowsup_pause_15_minutes">15 minutes</string>
@@ -27,6 +29,7 @@
     <string name="elbowsup_pause_notification_title">Call blocking is paused</string>
     <string name="elbowsup_pause_notification_until">Until %1$s</string>
     <string name="elbowsup_pause_notification_until_resume">Until you resume</string>
+    <string name="elbowsup_pause_notification_next_call">Until the next call comes in</string>
 
     <!-- Setup -->
     <string name="elbowsup_setup_label">Set up</string>

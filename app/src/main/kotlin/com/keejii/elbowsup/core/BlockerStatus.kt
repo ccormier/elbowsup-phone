@@ -7,6 +7,7 @@ enum class BlockerStatus {
     CONTACTS_PERMISSION_MISSING,
     PAUSED_TIMED,
     PAUSED_UNTIL_RESUME,
+    PAUSED_NEXT_CALL,
     PAUSED_SCHEDULE,
     ACTIVE,
 }
@@ -25,6 +26,7 @@ fun blockerStatus(
     !contactsPermission -> BlockerStatus.CONTACTS_PERMISSION_MISSING
     pause == PauseState.TIMED -> BlockerStatus.PAUSED_TIMED
     pause == PauseState.UNTIL_RESUME -> BlockerStatus.PAUSED_UNTIL_RESUME
+    pause == PauseState.NEXT_CALL -> BlockerStatus.PAUSED_NEXT_CALL
     pause == PauseState.SCHEDULE -> BlockerStatus.PAUSED_SCHEDULE
     else -> BlockerStatus.ACTIVE
 }
