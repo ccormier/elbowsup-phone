@@ -11,18 +11,16 @@ Elbows Up is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone).
 Requires JDK 17+ (21 used here) and an Android SDK with platform 36.
 `local.properties` must point at your SDK (`sdk.dir=...`).
 
-1. Publish the patched Commons to the local Maven repo first:
+The patched Commons is fetched from JitPack as `com.github.ccormier:elbowsup-commons`, so a plain
+build works:
 
-   ```bash
-   cd ../commons
-   ./gradlew :commons:publishToMavenLocal -PVERSION=6.1.6-elbowsup2
-   ```
+```bash
+./gradlew assembleFossDebug
+```
 
-2. Build the app:
-
-   ```bash
-   ./gradlew assembleFossDebug
-   ```
+To test uncommitted Commons changes locally, publish the patched Commons to the local Maven repo
+(`cd ../commons && ./gradlew :commons:publishToMavenLocal -PVERSION=<version>`) and temporarily
+point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons` for that build.
 
 ## What this fork changes
 
@@ -97,8 +95,11 @@ F-Droid and CI builds resolve the patched Commons from JitPack, built from
 1. Tag the commons fork with the version the app pins, for example `6.1.6-elbowsup2`, and push it.
 2. Trigger the JitPack build by requesting any artifact URL for that tag, and wait until
    `https://jitpack.io/api/builds/com.github.ccormier/elbowsup-commons/<tag>` reports `"status": "ok"`.
-3. Confirm `https://jitpack.io/org/fossify/commons/<tag>/commons-<tag>.pom` returns 200. If the tag
-   is not built yet, F-Droid and CI builds fail on the missing dependency.
+3. Confirm `https://jitpack.io/com/github/ccormier/elbowsup-commons/<tag>/elbowsup-commons-<tag>.pom`
+   returns 200. If the tag is not built yet, F-Droid and CI builds fail on the missing dependency.
+
+The app depends on the artifact under JitPack's `com.github.ccormier` coordinates. JitPack's
+`org.fossify:commons` alias serves the fork for commit hashes but not for tags, so do not pin it.
 
 Do this before tagging the app release.
 
