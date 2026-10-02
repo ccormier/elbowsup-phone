@@ -27,6 +27,8 @@ point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons` 
 - `APP_ID` / `APP_NAMESPACE` split in `gradle.properties` + `app/build.gradle.kts`
 - Launcher name "Elbows Up" in all locales (debug: "Elbows Up_debug")
 - `commons = "6.1.6-elbowsup2"` in `gradle/libs.versions.toml` (patched Commons — see `../commons/FORK.md`)
+- Launcher icon: the maple leaf from the Canadian flag (public domain, Wikimedia Commons) with the phone
+  and no-entry badge; one background drawable per icon colour variant
 - Call blocker and caller-name work: new code lives under `app/src/main/kotlin/com/keejii/elbowsup/`;
   the only edits to upstream files are listed in **Upstream touch points** below.
 
