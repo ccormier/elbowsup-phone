@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions
-    url: https://github.com/orgs/FossifyOrg/discussions
-    about: Please ask and answer questions here.
+  - name: Vanilla Fossify Phone (upstream)
+    url: https://github.com/FossifyOrg/Phone/issues
+    about: Bugs and feature requests that also apply to the plain Fossify Phone app

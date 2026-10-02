@@ -37,6 +37,7 @@ updates:
       include: "scope"
     ignore:
       - dependency-name: "org.fossify:commons"
+      - dependency-name: "com.github.ccormier:elbowsup-commons"
 
   - package-ecosystem: "github-actions"
     directory: "/"

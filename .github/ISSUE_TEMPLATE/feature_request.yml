@@ -1,30 +1,29 @@
 name: Feature request
-description: Suggest an idea for this project
+description: Suggest an idea for Elbows Up
 labels: [ "feature request", "needs triage" ]
 body:
   - type: markdown
     attributes:
       value: |
         ## Hi there 👋
-        Thanks for helping us improve Fossify Phone by suggesting a feature!
-        Please fill in as much information as possible about your feature request to avoid unnecessary and time-consuming back-and-forth communication.
+        Thanks for helping improve Elbows Up!
+
+        Ideas about caller ID names or call blocking belong here. Anything else (dialer, contacts,
+        call history, translations) belongs to the upstream project, where everyone can use it:
+        [Fossify Phone feature requests](https://github.com/FossifyOrg/Phone/issues).
 
   - type: checkboxes
     id: checklist
     attributes:
       label: "Checklist"
       options:
-        - label: "I made sure that there are **no existing issues** - [open](https://github.com/FossifyOrg/Phone/issues) or [closed](https://github.com/FossifyOrg/Phone/issues?q=is%3Aissue+is%3Aclosed) - to which I could contribute my information."
+        - label: "This request is about caller ID names or call blocking, or something that only exists in Elbows Up."
           required: true
-        - label: "I made sure that there are **no existing discussions** - [open](https://github.com/orgs/FossifyOrg/discussions?discussions_q=is:open+label:phone) or [closed](https://github.com/orgs/FossifyOrg/discussions?discussions_q=is:closed+label:phone) - to which I could contribute my information."
-          required: true
-        - label: "I have read the FAQs inside the app (Menu -> About -> FAQs) and my problem isn't listed."
+        - label: "I made sure that there are **no existing issues** - [open](https://github.com/ccormier/elbowsup-phone/issues) or [closed](https://github.com/ccormier/elbowsup-phone/issues?q=is%3Aissue+is%3Aclosed) - to which I could contribute my information."
           required: true
         - label: "**I have taken the time to fill in all the required details. I understand that the request will be dismissed otherwise.**"
           required: true
         - label: "This issue contains only one feature request."
-          required: true
-        - label: "I have read and understood the [contribution guidelines](https://github.com/FossifyOrg/Phone/blob/master/CONTRIBUTING.md)."
           required: true
 
   - type: textarea

@@ -105,6 +105,15 @@ The app depends on the artifact under JitPack's `com.github.ccormier` coordinate
 
 Do this before tagging the app release.
 
+### Releases
+
+Pushing a tag `v<versionName>` (for example `v1.11.1-elbowsup1`) runs
+`.github/workflows/release.yml`, which builds `assembleFossRelease`, signs it with the repository's
+signing secrets and publishes a GitHub release. Configure these repository secrets first:
+`SIGNING_KEY_ALIAS`, `SIGNING_KEY_PASSWORD`, `SIGNING_STORE_PASSWORD` and `SIGNING_STORE_BASE64`
+(the keystore file, base64-encoded). Without them the workflow skips the release with a warning, so
+pushing the tag is always safe.
+
 ### Before a release
 
 The project has three flavors (`core`, `foss`, `gplay`), each with a debug and a release build.

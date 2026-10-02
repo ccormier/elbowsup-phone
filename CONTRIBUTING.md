@@ -1,8 +1,11 @@
 ### Reporting
-Before you report something, read the reporting rules [here](https://github.com/FossifyOrg/General-Discussion#how-do-i-suggest-an-improvement-ask-a-question-or-report-an-issue) please.
+
+Elbows Up is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone). Before reporting
+something, check whether it also happens in the plain Fossify Phone app; if it does, report it
+upstream. Caller ID name and call blocking issues belong here.
 
 ### Contributing as a developer
-Some instructions about code style and everything that has to be done to increase the chance of your code getting accepted can be found at the [General Discussion](https://github.com/FossifyOrg/General-Discussion#contribution-rules-for-developers) section. 
 
-### Contributing as a non developer
-In case you just want to for example improve a translation, you can find the way of doing it [here](https://github.com/FossifyOrg/General-Discussion#how-can-i-suggest-an-edit-to-a-file).
+Keep the fork's diff against upstream small: new code lives in new files, and edits to upstream
+files are single-call hooks. See [FORK.md](FORK.md) for how the fork is built, versioned and kept in
+sync with upstream.
