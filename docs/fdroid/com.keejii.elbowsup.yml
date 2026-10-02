@@ -1,0 +1,34 @@
+# Draft F-Droid metadata for Elbows Up.
+#
+# To submit: fork https://gitlab.com/fdroid/fdroiddata, save this file as
+# metadata/com.keejii.elbowsup.yml, and open a merge request. The patched Fossify Commons dependency
+# is resolved from JitPack, which is on F-Droid's trusted repository list, so the recipe is as simple
+# as upstream's. Tags without the -elbowsup suffix belong to upstream and are ignored.
+Categories:
+  - Phone & SMS
+License: GPL-3.0-only
+Name: Elbows Up
+AuthorName: ccormier
+WebSite: https://github.com/ccormier/elbowsup-phone
+SourceCode: https://github.com/ccormier/elbowsup-phone
+IssueTracker: https://github.com/ccormier/elbowsup-phone/issues
+Changelog: https://github.com/ccormier/elbowsup-phone/releases
+
+RepoType: git
+Repo: https://github.com/ccormier/elbowsup-phone.git
+
+Builds:
+  - versionName: 1.11.1-elbowsup1
+    versionCode: 2201
+    commit: v1.11.1-elbowsup1
+    subdir: app
+    gradle:
+      - foss
+    output: build/outputs/apk/foss/release/phone-*-foss-release-unsigned.apk
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckIgnore: ^[0-9]+\.[0-9]+\.[0-9]+$
+UpdateCheckData: gradle.properties|VERSION_CODE=(\d+)|.|VERSION_NAME=(.*)
+CurrentVersion: 1.11.1-elbowsup1
+CurrentVersionCode: 2201

@@ -1,0 +1,7 @@
+First Elbows Up release, based on Fossify Phone 1.11.1.
+
+- Shows the caller ID name the carrier sends on incoming calls, for example "Likely Spam"
+- Adds a rule-based call blocker: ordered rules, caller ID name matching, schedules, pauses, and a list of blocked calls
+- Keeps everything from Fossify Phone, including the dialer, contacts and call history
+
+No ads, no tracking, no internet permission.
