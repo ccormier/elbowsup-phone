@@ -28,9 +28,31 @@ Requires JDK 17+ (21 used here) and an Android SDK with platform 36.
 
 - `APP_ID` / `APP_NAMESPACE` split in `gradle.properties` + `app/build.gradle.kts`
 - Launcher name "Elbows Up" in all locales (debug: "Elbows Up_debug")
-- `commons = "6.1.6-elbowsup1"` in `gradle/libs.versions.toml` (patched Commons — see `../commons/FORK.md`)
+- `commons = "6.1.6-elbowsup2"` in `gradle/libs.versions.toml` (patched Commons — see `../commons/FORK.md`)
 - Call blocker and caller-name work: new code lives under `app/src/main/kotlin/com/keejii/elbowsup/`;
   the only edits to upstream files are listed in **Upstream touch points** below.
+
+## Versioning
+
+Elbows Up always tracks the upstream version it is based on. The version name keeps that upstream
+version and adds a fork suffix, and the version code is derived so it always rises, even when we ship
+more than one fork release for the same upstream version:
+
+```
+VERSION_NAME = <upstream version>-elbowsup<N>
+VERSION_CODE = <upstream version code> * 100 + N
+```
+
+Upstream 1.11.1 (code 22) gives `1.11.1-elbowsup1` with code `2201`. A follow-up fix without an
+upstream bump is `1.11.1-elbowsup2`, code `2202`. After upstream 1.12.0 (code 23) the next fork
+release is `1.12.0-elbowsup1`, code `2301`.
+
+- The base version never changes: it always equals the upstream version this branch is based on.
+- A version code is never reused or lowered; F-Droid and Android both reject updates that do.
+- Release tags are `v<versionName>`, for example `v1.11.1-elbowsup1`. Tags without the `-elbowsup`
+  suffix belong to upstream and are ignored for releases.
+- The patched Commons must be published and verified on JitPack before the app release is tagged;
+  see **Publishing the patched Commons**.
 
 ## Keeping up with upstream
 
@@ -53,7 +75,7 @@ conflicted, each in one hunk. The blocker's own hooks and the seven other edited
 
 | Conflict | Resolution |
 |---|---|
-| `gradle.properties` | Take upstream's `VERSION_NAME` and `VERSION_CODE`; keep `APP_ID=com.keejii.elbowsup` and `APP_NAMESPACE=org.fossify.phone`. |
+| `gradle.properties` | Take upstream's `VERSION_NAME` and `VERSION_CODE`, then re-apply the fork suffix and derived code from **Versioning**; keep `APP_ID=com.keejii.elbowsup` and `APP_NAMESPACE=org.fossify.phone`. |
 | `gradle/libs.versions.toml` | Take upstream's other changes, then pin Commons again as described above. |
 | a few `values-*/strings.xml` (3 of 57 in the rehearsal) | Take upstream's file, then re-run the launcher-name pass below. |
 
@@ -66,6 +88,19 @@ perl -pi -e 's|(<string name="app_launcher_name">)[^<]*(</string>)|${1}Elbows Up
 
 Hooks use fully qualified names and no `import`, because upstream edits its import blocks constantly
 and our earlier imports were the only hook lines that conflicted. Keep it that way for new hooks.
+
+### Publishing the patched Commons
+
+F-Droid and CI builds resolve the patched Commons from JitPack, built from
+`https://github.com/ccormier/elbowsup-commons`, because it is not on Maven Central:
+
+1. Tag the commons fork with the version the app pins, for example `6.1.6-elbowsup2`, and push it.
+2. Trigger the JitPack build by requesting any artifact URL for that tag, and wait until
+   `https://jitpack.io/api/builds/com.github.ccormier/elbowsup-commons/<tag>` reports `"status": "ok"`.
+3. Confirm `https://jitpack.io/org/fossify/commons/<tag>/commons-<tag>.pom` returns 200. If the tag
+   is not built yet, F-Droid and CI builds fail on the missing dependency.
+
+Do this before tagging the app release.
 
 ### Before a release
 
