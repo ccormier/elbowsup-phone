@@ -1,0 +1,5 @@
+Branding and listing cleanup ahead of the first F-Droid release.
+
+- The app and its store listing now consistently use the Elbows Up name
+- Removed the upstream localized store descriptions; the English listing is shown everywhere for now
+- New feature graphic and Play Store icon

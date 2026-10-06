@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1-elbowsup2] - 2026-10-06
+### Changed
+- The FAQ string now uses the Elbows Up name in every locale
+- Replaced the remaining upstream store art (feature graphic and Play Store icon)
+- Dropped the upstream localized store listings; the English listing is shown everywhere for now
+
+### Build
+- `mavenLocal()` is now opt-in via `-PlocalCommons`
+
 ## [1.11.1] - 2026-02-01
 ### Changed
 - Updated translations
