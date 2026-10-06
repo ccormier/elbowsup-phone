@@ -19,8 +19,9 @@ build works:
 ```
 
 To test uncommitted Commons changes locally, publish the patched Commons to the local Maven repo
-(`cd ../commons && ./gradlew :commons:publishToMavenLocal -PVERSION=<version>`) and temporarily
-point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons` for that build.
+(`cd ../commons && ./gradlew :commons:publishToMavenLocal -PVERSION=<version>`), temporarily
+point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons`, and pass
+`-PlocalCommons` so the build adds `mavenLocal()` (release builds resolve only published artifacts).
 
 ## What this fork changes
 
