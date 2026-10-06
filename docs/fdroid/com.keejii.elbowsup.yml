@@ -15,9 +15,9 @@ Binaries:
   https://github.com/ccormier/elbowsup-phone/releases/download/v%v/phone-%c-foss-release.apk
 
 Builds:
-  - versionName: 1.11.1-elbowsup3
-    versionCode: 2203
-    commit: f0dc496656cc441e3b94ac6664aa9b7527dbf1d7
+  - versionName: 1.11.1-elbowsup4
+    versionCode: 2204
+    commit: 7fbd7c102d4f354eacac06b8b3725558f0d514c2
     subdir: app
     gradle:
       - foss
@@ -28,5 +28,5 @@ AllowedAPKSigningKeys: 68ca666b04bdfbcf574824c348a0608fbc8c81863666cd2d2e6550663
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9]
 UpdateCheckData: gradle.properties|VERSION_CODE=(\d+)|.|VERSION_NAME=(.*)
-CurrentVersion: 1.11.1-elbowsup3
-CurrentVersionCode: 2203
+CurrentVersion: 1.11.1-elbowsup4
+CurrentVersionCode: 2204
