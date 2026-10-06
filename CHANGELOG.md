@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1-elbowsup3] - 2026-10-06
+### Fixed
+- Corrected the Catalan and Basque FAQ wording and a missing space in Simplified Chinese
+
 ## [1.11.1-elbowsup2] - 2026-10-06
 ### Changed
 - The FAQ string now uses the Elbows Up name in every locale

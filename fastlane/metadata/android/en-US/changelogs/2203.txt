@@ -1,0 +1,1 @@
+- Fixed the FAQ wording in Catalan and Basque and a missing space in Simplified Chinese
