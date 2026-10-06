@@ -68,11 +68,11 @@
     <string name="audio_route_bluetooth">Bluetooth</string>
     <string name="export_call_history">Izvezi povijest poziva</string>
     <string name="import_call_history">Uvezi povijest poziva</string>
-    <string name="app_launcher_name">Elbows Up</string>
+    <string name="app_launcher_name">Elbows Up Phone</string>
     <string name="call_is_being_connected">Tvoj se poziv povezuje …</string>
     <string name="faq_2_title">Zašto pozivi za hitne slučajeve ne rade ispravno?</string>
     <string name="faq_3_title">Zašto neki moji kontakti nedostaju u aplikaciji?</string>
-    <string name="faq_3_text">Elbows Up prikazuje samo kontakte koji sadrže telefonski broj. Kontakti bez telefonskog broja ne prikazuju se u aplikaciji.</string>
+    <string name="faq_3_text">Elbows Up Phone prikazuje samo kontakte koji sadrže telefonski broj. Kontakti bez telefonskog broja ne prikazuju se u aplikaciji.</string>
     <string name="faq_2_text">Zbog ograničenja sustava, pozivi za hitne slučajeve se mogu uputiti samo putem zadanog brojčanika ili telefonske aplikacije tvog sustava. Za pravilan rad poziva za hitne slučajeve, aplikacija sustava mora biti instalirana i aktivirana.</string>
     <string name="call_notification_channel">Status poziva</string>
     <string name="call_notification_channel_high_priority">Status poziva (visoki prioritet)</string>

@@ -1,6 +1,6 @@
 ### Reporting
 
-Elbows Up is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone). Before reporting
+Elbows Up Phone is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone). Before reporting
 something, check whether it also happens in the plain Fossify Phone app; if it does, report it
 upstream. Caller ID name and call blocking issues belong here.
 

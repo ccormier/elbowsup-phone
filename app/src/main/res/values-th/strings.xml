@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_launcher_name">Elbows Up</string>
+    <string name="app_launcher_name">Elbows Up Phone</string>
     <string name="default_phone_app_prompt">ได้โปรดตั้งแอปนี้เป็นค่าเริ่มต้น</string>
     <string name="allow_displaying_over_other_apps">กรุณาอนุญาตให้แสดงทับแอปอื่นเพื่อความน่าเชื่อถือ</string>
     <string name="could_not_access_contacts">ไม่สามารถเข้าถึงรายชื่อของคุณได้</string>
@@ -76,5 +76,5 @@
     <string name="faq_2_title">ทำไมการโทรฉุกเฉินถึงไม่ทำงานตามปกติ?</string>
     <string name="faq_2_text">เนื่องจากข้อจำกัดของระบบ การโทรฉุกเฉินจึงสามารถทำได้ผ่านแอปโทรศัพท์หรือแอปโทรศัพท์เริ่มต้นของระบบเท่านั้น เพื่อให้แน่ใจว่าการโทรฉุกเฉินจะทำงานได้อย่างถูกต้อง คุณต้องติดตั้งและเปิดใช้งานแอประบบไว้เสมอ</string>
     <string name="faq_3_title">เหตุใดข้อมูลติดต่อบางส่วนของฉันจึงหายไปจากแอป?</string>
-    <string name="faq_3_text">Elbows Up จะแสดงเฉพาะรายชื่อติดต่อที่มีหมายเลขโทรศัพท์ที่เชื่อมโยงอยู่เท่านั้น รายชื่อติดต่อที่ไม่มีหมายเลขโทรศัพท์จะไม่แสดงในแอป</string>
+    <string name="faq_3_text">Elbows Up Phone จะแสดงเฉพาะรายชื่อติดต่อที่มีหมายเลขโทรศัพท์ที่เชื่อมโยงอยู่เท่านั้น รายชื่อติดต่อที่ไม่มีหมายเลขโทรศัพท์จะไม่แสดงในแอป</string>
 </resources>

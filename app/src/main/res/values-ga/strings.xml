@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="clear_history_confirmation">An bhfuil tú cinnte gur mhaith leat gach rud a bhaint de Stair na nGlaonna?</string>
-    <string name="app_launcher_name">Elbows Up</string>
+    <string name="app_launcher_name">Elbows Up Phone</string>
     <string name="no_previous_calls">Níor aimsíodh aon ghlaonna roimhe seo</string>
     <string name="clear_call_history">Glan stair na nglaonna</string>
     <string name="show_call_details">Taispeáin sonraí glaonna</string>
@@ -72,7 +72,7 @@
     <string name="call_is_being_connected">Tá do ghlao á nascadh…</string>
     <string name="faq_2_title">Cén fáth nach n-oibríonn glaonna éigeandála i gceart?</string>
     <string name="faq_3_title">Cén fáth a bhfuil cuid de mo theagmhálaithe in easnamh ón aip?</string>
-    <string name="faq_3_text">Ní thaispeánann Elbows Up ach teagmhálaithe a bhfuil uimhir theileafóin bainteach leo. Ní thaispeántar teagmhálacha gan uimhir theileafóin san aip.</string>
+    <string name="faq_3_text">Ní thaispeánann Elbows Up Phone ach teagmhálaithe a bhfuil uimhir theileafóin bainteach leo. Ní thaispeántar teagmhálacha gan uimhir theileafóin san aip.</string>
     <string name="faq_2_text">Mar gheall ar shrianta córais, ní féidir glaonna éigeandála a dhéanamh ach trí dhiailer réamhshocraithe nó aip ghutháin do chórais. Chun a chinntiú go n-oibríonn glaonna éigeandála i gceart, ní mór duit aip an chórais a choinneáil suiteáilte agus cumasaithe.</string>
     <string name="call_notification_channel">Stádas glaonna</string>
     <string name="call_notification_channel_high_priority">Stádas glao (tosaíocht ard)</string>

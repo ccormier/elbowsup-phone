@@ -1,6 +1,6 @@
-# Elbows Up — fork notes
+# Elbows Up Phone — fork notes
 
-Elbows Up is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone).
+Elbows Up Phone is a fork of [Fossify Phone](https://github.com/FossifyOrg/Phone).
 
 - **Application id:** `com.keejii.elbowsup` (debug: `com.keejii.elbowsup.debug`)
 - **Code namespace:** `org.fossify.phone` (unchanged from upstream, to keep merges small)
@@ -26,7 +26,7 @@ point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons`,
 ## What this fork changes
 
 - `APP_ID` / `APP_NAMESPACE` split in `gradle.properties` + `app/build.gradle.kts`
-- Launcher name "Elbows Up" in all locales (debug: "Elbows Up_debug")
+- Launcher name "Elbows Up Phone" in all locales (debug: "Elbows Up Phone_debug")
 - `commons = "6.1.6-elbowsup2"` in `gradle/libs.versions.toml` (patched Commons — see `../commons/FORK.md`)
 - Launcher icon: the maple leaf from the Canadian flag (public domain, Wikimedia Commons) with the phone
   and no-entry badge; one background drawable per icon colour variant
@@ -35,7 +35,7 @@ point `fossify-commons` in `gradle/libs.versions.toml` at `org.fossify:commons`,
 
 ## Versioning
 
-Elbows Up always tracks the upstream version it is based on. The version name keeps that upstream
+Elbows Up Phone always tracks the upstream version it is based on. The version name keeps that upstream
 version and adds a fork suffix, and the version code is derived so it always rises, even when we ship
 more than one fork release for the same upstream version:
 
@@ -83,7 +83,7 @@ conflicted, each in one hunk. The blocker's own hooks and the seven other edited
 Launcher name, after taking upstream's strings (the default language lives in `values/strings.xml`):
 
 ```bash
-perl -pi -e 's|(<string name="app_launcher_name">)[^<]*(</string>)|${1}Elbows Up${2}|' \
+perl -pi -e 's|(<string name="app_launcher_name">)[^<]*(</string>)|${1}Elbows Up Phone${2}|' \
   app/src/main/res/values*/strings.xml
 ```
 

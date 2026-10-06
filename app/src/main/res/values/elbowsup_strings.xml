@@ -10,8 +10,8 @@
     <string name="elbowsup_detail_active">Calls that match your rules are blocked.</string>
     <string name="elbowsup_detail_unsupported">Call blocking needs Android 10 or newer.</string>
     <string name="elbowsup_detail_needs_setup">Blocking is off until setup is finished.</string>
-    <string name="elbowsup_detail_screening_missing">Blocking is off because Elbows Up is not the call screening app.</string>
-    <string name="elbowsup_detail_contacts_missing">Blocking is off because Elbows Up cannot read your contacts.</string>
+    <string name="elbowsup_detail_screening_missing">Blocking is off because Elbows Up Phone is not the call screening app.</string>
+    <string name="elbowsup_detail_contacts_missing">Blocking is off because Elbows Up Phone cannot read your contacts.</string>
     <string name="elbowsup_detail_paused_until">Paused until %1$s.</string>
     <string name="elbowsup_detail_paused_until_resume">Paused until you resume.</string>
     <string name="elbowsup_detail_paused_next_call">Paused until the next call comes in, then blocking starts again.</string>
@@ -33,11 +33,11 @@
 
     <!-- Setup -->
     <string name="elbowsup_setup_label">Set up</string>
-    <string name="elbowsup_setup_screening">Elbows Up needs to be your call screening app to block calls before they ring.</string>
+    <string name="elbowsup_setup_screening">Elbows Up Phone needs to be your call screening app to block calls before they ring.</string>
     <string name="elbowsup_setup_screening_button">Set as call screening app</string>
-    <string name="elbowsup_setup_contacts">Elbows Up needs to read your contacts so the people you know always ring through.</string>
+    <string name="elbowsup_setup_contacts">Elbows Up Phone needs to read your contacts so the people you know always ring through.</string>
     <string name="elbowsup_setup_contacts_button">Allow contacts</string>
-    <string name="elbowsup_setup_dialer">Elbows Up is not your phone app. Rules that use the caller ID name, and answer and hang up, need it.</string>
+    <string name="elbowsup_setup_dialer">Elbows Up Phone is not your phone app. Rules that use the caller ID name, and answer and hang up, need it.</string>
     <string name="elbowsup_setup_dialer_button">Make default phone app</string>
 
     <!-- Rules list -->
@@ -73,7 +73,7 @@
     <string name="elbowsup_action_reject">Reject, show missed call</string>
     <string name="elbowsup_action_silence">Silence</string>
     <string name="elbowsup_action_answer_hangup">Answer and hang up</string>
-    <string name="elbowsup_action_answer_hangup_unavailable">Answer and hang up needs Elbows Up as your phone app. Until then it rejects and hides the missed call.</string>
+    <string name="elbowsup_action_answer_hangup_unavailable">Answer and hang up needs Elbows Up Phone as your phone app. Until then it rejects and hides the missed call.</string>
     <string name="elbowsup_enabled">Enabled</string>
     <string name="elbowsup_error_pattern_required">Enter a value to match.</string>
     <string name="elbowsup_error_not_a_number">Use digits, with an optional + at the start.</string>

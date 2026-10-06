@@ -1,12 +1,12 @@
 name: Feature request
-description: Suggest an idea for Elbows Up
+description: Suggest an idea for Elbows Up Phone
 labels: [ "feature request", "needs triage" ]
 body:
   - type: markdown
     attributes:
       value: |
         ## Hi there 👋
-        Thanks for helping improve Elbows Up!
+        Thanks for helping improve Elbows Up Phone!
 
         Ideas about caller ID names or call blocking belong here. Anything else (dialer, contacts,
         call history, translations) belongs to the upstream project, where everyone can use it:
@@ -17,7 +17,7 @@ body:
     attributes:
       label: "Checklist"
       options:
-        - label: "This request is about caller ID names or call blocking, or something that only exists in Elbows Up."
+        - label: "This request is about caller ID names or call blocking, or something that only exists in Elbows Up Phone."
           required: true
         - label: "I made sure that there are **no existing issues** - [open](https://github.com/ccormier/elbowsup-phone/issues) or [closed](https://github.com/ccormier/elbowsup-phone/issues?q=is%3Aissue+is%3Aclosed) - to which I could contribute my information."
           required: true

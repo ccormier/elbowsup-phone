@@ -63,7 +63,7 @@
     <string name="show_incoming_calls_full_screen">Dohodne klice vedno prikaži na celotnem zaslonu</string>
     <string name="faq_1_title">Slišim dohodne klice, vendar se zaslon ne vklopi. Kaj lahko storim\?</string>
     <string name="faq_1_text">Takšne težave imajo lahko veliko razlogov, ki so specifični za napravo in sistem, zato jih je na splošno težko opredeliti. Oglejte si nastavitve naprave in se prepričajte, da je aplikaciji dovoljeno, da se prikaže, ko je v ozadju, in da omogoča prikaz nad drugimi aplikacijami.</string>
-    <string name="app_launcher_name">Elbows Up</string>
+    <string name="app_launcher_name">Elbows Up Phone</string>
     <string name="audio_route_bluetooth">Bluetooth</string>
     <string name="calling_blocked_number">Klicana številka je blokirana</string>
     <string name="hide_dialpad_numbers">Skrij števila na številčnici</string>
@@ -76,5 +76,5 @@
     <string name="faq_2_title">Zakaj klici v sili ne delujejo pravilno?</string>
     <string name="faq_2_text">Zaradi sistemskih omejitev je mogoče klice v sili opravljati samo prek privzetega sistema za klicanje ali telefonske aplikacije. Da bi klici v sili delovali pravilno, morate imeti sistemsko aplikacijo nameščeno in omogočeno.</string>
     <string name="faq_3_title">Zakaj nekateri moji stiki manjkajo v aplikaciji?</string>
-    <string name="faq_3_text">Elbows Up prikazuje samo stike, ki imajo povezano telefonsko številko. Stiki brez telefonske številke v aplikaciji niso prikazani.</string>
+    <string name="faq_3_text">Elbows Up Phone prikazuje samo stike, ki imajo povezano telefonsko številko. Stiki brez telefonske številke v aplikaciji niso prikazani.</string>
 </resources>

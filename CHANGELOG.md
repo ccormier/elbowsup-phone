@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1-elbowsup4] - 2026-10-06
+### Changed
+- Renamed the app to Elbows Up Phone in every locale, the store listing and the docs
+- Refreshed the README and store description to highlight call screening and the blocker
+- Updated the feature graphic
+
 ## [1.11.1-elbowsup3] - 2026-10-06
 ### Fixed
 - Corrected the Catalan and Basque FAQ wording and a missing space in Simplified Chinese

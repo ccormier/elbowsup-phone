@@ -1,24 +1,24 @@
 name: Bug report
-description: Report a bug in Elbows Up
+description: Report a bug in Elbows Up Phone
 labels: [ "bug", "needs triage" ]
 body:
   - type: markdown
     attributes:
       value: |
         ## Hi there 👋
-        Thanks for helping improve Elbows Up!
+        Thanks for helping improve Elbows Up Phone!
 
-        Elbows Up is a fork of Fossify Phone. Please check whether the same bug also happens in the
+        Elbows Up Phone is a fork of Fossify Phone. Please check whether the same bug also happens in the
         plain Fossify Phone app; if it does, it belongs in the
         [upstream tracker](https://github.com/FossifyOrg/Phone/issues) instead. Report it here when it
-        is about caller ID names, call blocking, or anything that only happens in Elbows Up.
+        is about caller ID names, call blocking, or anything that only happens in Elbows Up Phone.
 
   - type: checkboxes
     id: checklist
     attributes:
       label: "Checklist"
       options:
-        - label: "I can reproduce the bug with the latest Elbows Up release from [GitHub](https://github.com/ccormier/elbowsup-phone/releases/latest)."
+        - label: "I can reproduce the bug with the latest Elbows Up Phone release from [GitHub](https://github.com/ccormier/elbowsup-phone/releases/latest)."
           required: true
         - label: "I checked whether the bug also happens in [vanilla Fossify Phone](https://github.com/FossifyOrg/Phone/releases/latest). If it does, I will report it upstream instead."
           required: true
@@ -33,7 +33,7 @@ body:
     id: app-version
     attributes:
       label: Affected app version
-      description: "Which Elbows Up version were you using when you found the bug?"
+      description: "Which Elbows Up Phone version were you using when you found the bug?"
       placeholder: "x.x.x-elbowsupN - Go to App Main Menu > About > Version."
     validations:
       required: true
@@ -61,12 +61,12 @@ body:
   - type: dropdown
     id: roles
     attributes:
-      label: Is Elbows Up set up?
+      label: Is Elbows Up Phone set up?
       description: Blocking only runs after setup.
       options:
-        - Elbows Up is my phone app and holds the call screening role
-        - Elbows Up is my phone app but not the call screening app
-        - Elbows Up is not my phone app
+        - Elbows Up Phone is my phone app and holds the call screening role
+        - Elbows Up Phone is my phone app but not the call screening app
+        - Elbows Up Phone is not my phone app
         - I am not sure
 
   - type: textarea

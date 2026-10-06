@@ -1,0 +1,4 @@
+The app is now called Elbows Up Phone.
+
+- The launcher, About screen and store listing use the new name, so it is clear it is a phone app
+- New feature graphic to match

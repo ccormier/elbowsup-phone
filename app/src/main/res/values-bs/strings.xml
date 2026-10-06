@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_launcher_name">Elbows Up</string>
+    <string name="app_launcher_name">Elbows Up Phone</string>
     <string name="default_phone_app_prompt">Postavi ovu aplikaciju kao standardnu aplikaciju za telefon</string>
     <string name="allow_displaying_over_other_apps">Za pouzdan rad dozvoli prikazivanje ispred drugih aplikacija</string>
     <string name="could_not_access_contacts">Nije moguće pristupiti vašim kontaktima</string>
@@ -76,5 +76,5 @@
     <string name="faq_2_title">Zašto pozivi za hitne slučajeve ne rade ispravno?</string>
     <string name="faq_2_text">Zbog ograničenja sustava, pozivi za hitne slučajeve se mogu uputiti samo putem zadanog brojčanika ili telefonske aplikacije tvog sistema. Za pravilan rad poziva za hitne slučajeve, aplikacija sistema mora biti instalirana i aktivirana.</string>
     <string name="faq_3_title">Zašto neki moji kontakti nedostaju u aplikaciji?</string>
-    <string name="faq_3_text">Elbows Up prikazuje samo kontakte koji sadrže telefonski broj. Kontakti bez telefonskog broja ne prikazuju se u aplikaciji.</string>
+    <string name="faq_3_text">Elbows Up Phone prikazuje samo kontakte koji sadrže telefonski broj. Kontakti bez telefonskog broja ne prikazuju se u aplikaciji.</string>
 </resources>

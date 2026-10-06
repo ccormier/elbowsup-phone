@@ -1,6 +1,6 @@
-# Elbows Up
+# Elbows Up Phone
 
-Elbows Up is the Fossify Phone dialer with a call blocker built in. The user writes an ordered list of rules, and calls that match a rule are rejected, silenced, or answered and hung up.
+Elbows Up Phone is the Fossify Phone dialer with a call blocker built in. The user writes an ordered list of rules, and calls that match a rule are rejected, silenced, or answered and hung up.
 
 ## Language
 

@@ -1,8 +1,8 @@
-Elbows Up is a fork of Fossify Phone with two additions:
+Elbows Up Phone is a fork of Fossify Phone with two additions:
 
 • Caller ID names on incoming calls. It shows the name the carrier sends with a call: a business name, a caller's name, or a carrier-provided label such as "Likely Spam".
-• A built-in call blocker. Write an ordered list of rules; calls that match are rejected, silenced, or answered and hung up. Rules can match numbers, hidden callers, caller ID names, or the lack of a name, and can be limited to schedules. A pause switch and a list of blocked calls are included.
+• A built-in call blocker. It screens calls with Android's call screening service and lets you write an ordered list of rules; calls that match are rejected, silenced, or answered and hung up. Rules can match numbers, hidden callers, caller ID names, or the lack of a name, and can be limited to schedules. A pause switch and a list of blocked calls are included.
 
 Everything else — the dialer, contacts and call history — comes from Fossify Phone, and the fork keeps tracking upstream releases. No ads, no tracking, and no internet permission.
 
-Elbows Up is not affiliated with or endorsed by the Fossify project. Fossify Phone and Fossify Commons are the upstream projects this fork is built on.
+Elbows Up Phone is not affiliated with or endorsed by the Fossify project. Fossify Phone and Fossify Commons are the upstream projects this fork is built on.
