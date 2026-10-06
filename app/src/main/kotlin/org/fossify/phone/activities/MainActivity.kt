@@ -565,6 +565,9 @@ class MainActivity : SimpleActivity() {
         val licenses = LICENSE_GLIDE or LICENSE_INDICATOR_FAST_SCROLL or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
+            FAQItem(R.string.faq_4_title, R.string.faq_4_text),
+            FAQItem(R.string.faq_5_title, R.string.faq_5_text),
+            FAQItem(R.string.faq_6_title, R.string.faq_6_text),
             FAQItem(R.string.faq_1_title, R.string.faq_1_text),
             FAQItem(R.string.faq_2_title, R.string.faq_2_text),
             FAQItem(R.string.faq_3_title, R.string.faq_3_text),
@@ -576,7 +579,7 @@ class MainActivity : SimpleActivity() {
             faqItems.add(FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons))
         }
 
-        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
+        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true, showEmail = false)
     }
 
     private fun showSortingDialog(showCustomSorting: Boolean) {

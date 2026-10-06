@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1-elbowsup5] - 2026-10-06
+### Changed
+- About screen: Known issues and Invite friends point to the Elbows Up Phone repo, and the Fossify email row is hidden
+- New FAQ entries about what the fork adds and why it needs the phone and call screening roles
+
 ## [1.11.1-elbowsup4] - 2026-10-06
 ### Changed
 - Renamed the app to Elbows Up Phone in every locale, the store listing and the docs

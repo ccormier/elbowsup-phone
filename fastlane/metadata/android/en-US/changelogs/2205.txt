@@ -1,0 +1,5 @@
+About screen cleanup.
+
+- Known issues and Invite friends now point to the Elbows Up Phone repo
+- The Fossify email row is gone; bug reports go to the issue tracker
+- New FAQ entries: what the fork adds, why it needs the phone and call screening roles, and where to report bugs

@@ -91,6 +91,12 @@
     <string name="faq_2_text">Due to system restrictions, emergency calls can only be made through your system\'s default dialer or phone app. To ensure emergency calls work properly, you need to keep the system app installed and enabled.</string>
     <string name="faq_3_title">Why are some of my contacts missing from the app?</string>
     <string name="faq_3_text">Elbows Up Phone only displays contacts that have a phone number associated with them. Contacts without a phone number are not shown in the app.</string>
+    <string name="faq_4_title">How is Elbows Up Phone different from Fossify Phone?</string>
+    <string name="faq_4_text">Elbows Up Phone adds two things on top of Fossify Phone: caller ID names on incoming calls, and a rule-based call blocker. Everything else — the dialer, contacts and call history — works the same.</string>
+    <string name="faq_5_title">Why does Elbows Up Phone need to be my phone and call screening app?</string>
+    <string name="faq_5_text">The call screening role lets it decide on calls before they ring, so blocked calls never make a sound. The phone role is needed for rules that use the caller ID name, and for answer and hang up, because the carrier sends the name only once the call reaches the phone.</string>
+    <string name="faq_6_title">Where should I report a bug or ask a question?</string>
+    <string name="faq_6_text">If the problem also happens in the plain Fossify Phone app, report it to Fossify. Otherwise, report it to the Elbows Up Phone issue tracker on GitHub, or use the Known issues link on this screen.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/FossifyOrg/Commons/tree/master/commons/src/main/res
