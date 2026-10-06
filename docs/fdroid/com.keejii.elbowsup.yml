@@ -1,30 +1,23 @@
-# Draft F-Droid metadata for Elbows Up.
-#
-# To submit: fork https://gitlab.com/fdroid/fdroiddata, save this file as
-# metadata/com.keejii.elbowsup.yml, and open a merge request. The patched Fossify Commons dependency
-# is resolved from JitPack, which is on F-Droid's trusted repository list, so the recipe is as simple
-# as upstream's. Only tags matching ^v[0-9] (our releases) are considered. Releases are
-# signed with the developer key and listed under Binaries/AllowedAPKSigningKeys, so F-Droid can
-# verify its own rebuild against the published APK.
 Categories:
   - Phone & SMS
 License: GPL-3.0-only
-Name: Elbows Up
 AuthorName: ccormier
 WebSite: https://github.com/ccormier/elbowsup-phone
 SourceCode: https://github.com/ccormier/elbowsup-phone
 IssueTracker: https://github.com/ccormier/elbowsup-phone/issues
 Changelog: https://github.com/ccormier/elbowsup-phone/releases
 
+Name: Elbows Up
+
 RepoType: git
 Repo: https://github.com/ccormier/elbowsup-phone.git
-Binaries:
+Binaries: 
   https://github.com/ccormier/elbowsup-phone/releases/download/v%v/phone-%c-foss-release.apk
 
 Builds:
   - versionName: 1.11.1-elbowsup3
     versionCode: 2203
-    commit: v1.11.1-elbowsup3
+    commit: f0dc496656cc441e3b94ac6664aa9b7527dbf1d7
     subdir: app
     gradle:
       - foss
